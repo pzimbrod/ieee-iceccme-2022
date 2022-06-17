@@ -1,4 +1,4 @@
-\documentclass[conference]{IEEEtran}
+\documentclass[conference,final]{IEEEtran}
 
 \makeatletter
 \def\ps@IEEEtitlepagestyle{%
@@ -19,6 +19,7 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
+\usepackage{siunitx}
 \usepackage{textcomp}
 \usepackage{xcolor}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -37,66 +38,106 @@
     
     
 \begin{document}
-\title{\vspace*{1cm} Conference Paper Title*\\
-{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
-should not be used}
-\thanks{Identify applicable funding agency here. If none, delete this.}
+\title{\vspace*{1cm} Efficient modelling of surface tension driven flows using an h-adaptive Finite Volume Method \\
 }
 
-\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
+\author{\IEEEauthorblockN{Patrick Zimbrod}
+\IEEEauthorblockA{\textit{Digital Manufacturing} \\
+\textit{University of Augsburg}\\
+Augsburg, Germany\\
+0000-0003-3108-3171}
 \and
-\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
+\IEEEauthorblockN{Johannes Schilp}
+\IEEEauthorblockA{\textit{Digital Manufacturing} \\
+\textit{University of Augsburg}\\
+Augsburg, Germany\\
+johannes.schilp@uni-a.de}
 }
 
 \maketitle
 \conf{\textit{  Proc. of the International Conference on Electrical, Computer, Communications and Mechatronics Engineering  (ICECCME) \\ 
 16-18 November 2022, Maldives}}
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
-or Math in Paper Title or Abstract.
+We present a free and open source implementation of the Finite Volume Method that captures thermal and solute-driven surface flows, more commonly known as Marangoni flows. The application is capable of performing adaptive mesh refinement in order to substantially save computational cost in multiphase flows where accurate tracking of the phase boundaries is crucial. We demonstrate our work by a simple two-dimensional benchmark case and outline possible applications with a mesoscopic model of Laser Powder Bed Fusion additive manufacturing.
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert
+finite volume method, adaptive refinement, marangoni flow, open source software
 \end{IEEEkeywords}
 
 \section{Introduction}
 This document is a model and instructions for \LaTeX.
 Please observe the conference page limits. 
+\section{Theory}
 
+The theory in this work relies on the Continuum Surface Stress Method initially presented by Lafaurie et al., extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{lafaurieModellingMergingFragmentation1994,brackbillContinuumMethodModeling1992}. This foundation is modified and implemented into the existing OpenFOAM solver \texttt{icoReactingMultiphaseInterFoam} based on Version 2106. The modifications rely on the works of Gueyffier et al. in order to account for the additional Marangoni stresses \cite{gueyffierVolumeofFluidInterfaceTracking1999}. The following presents a brief summary of the modelling involved.
+
+To describe the necessary tensor algebra, we will use the index notation of tensors in a cartesic coordinate system alongside with the Einstein summation convention where the sum over matching indices is implied. First, the capillary stress tensor is introduced:
+
+\begin{equation}
+    T_{ij} = - \sigma \delta_s (\delta_{ij} - n_i n_j)
+\end{equation}
+
+Where $\sigma$ is the generally non constant coefficient of surface tension, $\delta_s$ is the interface delta function, $\delta_{ij}$ is the Kronecker Delta function and $n_i$ is the interface unit normal vector. The local coordinate system of the interface needs to be an orthogonal system in order to separate the purely geometry based capillary force and the tangential Marangoni forces.
+The resulting force accounting for all surface tension effects can now be expressed as the divergence of the capillary stress tensor, yielding:
+
+\begin{align}
+    \frac{\partial T_{ij}}{\partial x_j} = \frac{\partial \sigma}{\partial x_j} [\delta_s(\delta_{ij} - n_i n_j)] + \frac{\partial \delta_s}{\partial x_j} [\sigma (\delta_{ij} - n_i n_j)] + \sigma \delta_s \frac{\partial}{\partial x_j} (\delta_{ij} - n_i n_j) \label{eq:stress-tensor}
+\end{align}
+
+One can show that Eq. \ref{eq:stress-tensor} can be re-arranged using some tensor algebra and geometric identities into a much shorter and more useful form. The derivation is given in more detail by Lafaurie et al. \cite{lafaurieModellingMergingFragmentation1994}. By performing those rearrangements, we can recover a form that separates the normal from the tangential components of the divergence vector:
+
+\begin{equation}
+    \frac{\partial T_{ij}}{\partial x_j} = \frac{\partial \sigma}{\partial x_i} [\delta_s(\delta_{ij} - n_i n_j)] - \sigma \kappa n_i \delta_s
+\end{equation}
+
+Here, the interface curvature $\kappa$ is introduced. The second term of the right hand side corresponds to the normal capillary force directed in the normal direction of the interface, effecting a contractional movement of the interface. The first term resembles the marangoni-type forces present. By taking the derivative of the surface tension coefficient, this term does not vanish iff there are gradients present at the interface. This is normally the case when there are multiple species involved or temperature gradients present \cite{j.straubThermokapillareGrenzflachenkonvektionGasblasen1990}. Note that we then simply evaluate the ordinary form of surface tension without any additional physics present. However, as the surface tension coefficient is otherwise not a direct local variable, one must further differentiate the term:
+
+\begin{equation}
+    \frac{\partial \sigma(c,T)}{\partial x_j} = \frac{\partial \sigma(c,T)}{\partial T} \frac{\partial T}{\partial x_j} + \frac{\partial \sigma(c,T)}{\partial c} \frac{\partial c}{\partial x_j}
+    \label{eq:sigmadiff}
+\end{equation}
+
+Additionally, the delta function $\delta_s$ needs to be discretized in a suitable manner in order to capture the physics within the Finite Volume framework. This can be done using the Volume of Fluid Method by taking the gradient of the phase volume fraction $\alpha$ \cite{gueyffierVolumeofFluidInterfaceTracking1999,hirtVolumeFluidVOF1981}:
+
+\begin{equation}
+    \delta_s = \left\lvert \frac{\partial \alpha}{\partial x_i} \right\rvert
+\end{equation}
+
+The interface unit normal vector $n_i$ can be computed in a similar manner by using the previously computed interface function:
+
+\begin{equation}
+    n_i = \frac{1}{\delta_s} \frac{\partial \alpha}{\partial x_i}
+\end{equation}
+
+To perform the finite volume simulations, the Open Source C++ Library OpenFOAM is used in Version 2106. In order to accommodate the extended surface stress formulation, some of the existing solver capabilities need to be modified. The changes necessary are elaborated on in more detail in the following chapter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+
+\subsection{Implementation}
+
+Our implementation of the thermo-fluid-dynamic model is based on the Open Source Software library OpenFOAM.
+In our proposed implementation, we compute the local gradient of the surface tension explicitly, after it is evaluated for every cell. This means that the gradients with respect to temperature and species concentration are interpolated from the given material properties and the field derivatives are computed separately, unlike Eq. \ref{eq:sigmadiff} suggests.
+As a result, the capillary stress is evaluated regardless of the type of Marangoni flow. That is, temperature as well as species gradients or in other effects causing spacial gradients are regarded in this model and contribute to a resulting tangential stress on the interface. Using this approach, the solver configuration remains flexible regarding the future implementation of other or different type physics. However, an appropriate modelling of the surface tension coefficient is required.
+
+The proposed code computes the divergence of the capillary stress tensor for finite volume cell centers. However, to handle source terms within the PIMPLE loop, it is necessary to also supply the surface tension force as a scalar interpolated to the cell face. Therefore, an additional method is implemented that computes the $L_2$ norm of the surface tension force vector and interpolates the scalar value via finite differencing.
+
+For powder bed fusion applications where large spacial temperature gradients in the order of \SI[per-mode=fraction]{1e7}{\kelvin \per \metre} can be present \cite{hooperMeltPoolTemperature2018}, it is advisable to use a second order accurate and stable discretisation scheme for the temperature flux, such as the already within OpenFOAM implemented TVD schemes minmod, superBee or vanLeer \cite{roeCharacteristicBasedSchemesEuler1986,vanleerUltimateConservativeDifference1974}.
+
+In order to resolve the complex wetting phenomena and flow patterns in inhomogenous mixtures requires the modelling of several distinct phases. In our case for Ti6Al4V, this equates to a total of $3n +1 =10$ phases including the separate gaseous phase to model the shielding gas flow.
+
+To account for thermal and solute-driven effects simultaneously, we need to incorporate the temperature dependence of the surface tension as well as interfacial tension between the alloying elements in the liquid state. This allows us to capture not only flow patterns on the liquid-gas interface, but also between liquid interfaces of dissimilar species. We may find accurate values for temperature dependent surface tension in the literature. However, determining interfacial tension poses a non-trivial problem that has been discussed in the literature \cite{marmurCorrelatingInterfacialTensions2010}.
+
+Naturally, the occurence of interfaces between dissimilar metals is nothing unique to the setting of in-situ alloying. This effect should be observable in pre-alloyed powders as well and hence also play a role in Powder Bed Fusion processes in general. However, the mixing paths in this case will be in the range of less than the typical powder diameter and thus in the order of \SI[per-mode=fraction]{1e0}{\micro\metre} to \SI[per-mode=fraction]{10}{\micro\metre}. In-situ alloying however leads to a distribution of alloying species much further apart from each other, i.e. about 10x in comparison. This consequently increases the time the flow takes to homogeneize the melt notably and thus should not be considered instantaneous and hence neglected anymore.
+
+In a pursuit to keep model evaluation simple and not rely on Molecular Dynamics calculations, we use the following, relatively simple approximation for interfacial tension given by Girifalco and Good \cite{girifalcoTheoryEstimationSurface1957}:
+
+\begin{equation}
+    \sigma_{1,2} = \sigma_1 + \sigma_1 + 2C (\sigma_1 \sigma_2)^{1/2}
+\end{equation}
+
+Here, $\sigma_{1,2}$ denotes the interfacial tension, $\sigma_1$ and $\sigma_2$ are the surface tensions of the involved species and $C$ is a constant which we assume to be unity as a reasonable approximation \cite{marmurCorrelatingInterfacialTensions2010}.
 \section{Ease of Use}
 
 \subsection{Maintaining the Integrity of the Specifications}
@@ -299,15 +340,7 @@ element symbols.
 For papers published in translation journals, please give the English 
 citation first, followed by the original foreign-language citation \cite{b6}.
 
-\begin{thebibliography}{00}
-\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
-\end{thebibliography}
+\bibliography{mybibfile}
 \vspace{12pt}
 \color{red}
 IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.5)  17 JUN 2022 11:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.5)  17 JUN 2022 12:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -275,46 +275,114 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 \Gin@req@height=\dimen173
 \Gin@req@width=\dimen174
 )
+(/usr/local/texlive/2022/texmf-dist/tex/latex/siunitx/siunitx.sty
+Package: siunitx 2022-02-15 v3.0.49 A comprehensive (SI) units package
+\l__siunitx_angle_tmp_dim=\dimen175
+\l__siunitx_angle_marker_box=\box54
+\l__siunitx_angle_unit_box=\box55
+\l__siunitx_compound_count_int=\count300
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/translations/translations.sty
+Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages
+ (CN)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count301
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+))
+\l__siunitx_number_exponent_fixed_int=\count302
+\l__siunitx_number_min_decimal_int=\count303
+\l__siunitx_number_min_integer_int=\count304
+\l__siunitx_number_round_precision_int=\count305
+\l__siunitx_number_group_minimum_int=\count306
+\l__siunitx_table_tmp_box=\box56
+\l__siunitx_table_tmp_dim=\dimen176
+\l__siunitx_table_column_width_dim=\dimen177
+\l__siunitx_table_integer_box=\box57
+\l__siunitx_table_decimal_box=\box58
+\l__siunitx_table_before_box=\box59
+\l__siunitx_table_after_box=\box60
+\l__siunitx_table_before_dim=\dimen178
+\l__siunitx_table_carry_dim=\dimen179
+\l__siunitx_unit_tmp_int=\count307
+\l__siunitx_unit_position_int=\count308
+\l__siunitx_unit_total_int=\count309
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2022-02-24 L3 programming layer (loader) 
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count310
+\l__pdf_internal_box=\box61
+))
+Package: l3keys2e 2022-01-12 LaTeX2e option processing using LaTeX3 keys
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen180
+\ar@mcellbox=\box62
+\extrarowheight=\dimen181
+\NC@list=\toks23
+\extratabsurround=\skip55
+\backup@length=\skip56
+\ar@cellbox=\box63
+))
 (/usr/local/texlive/2022/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 )
-(/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count300
-\l__pdf_internal_box=\box54
-)
+Package translations Info: No language package found. I am going to use `englis
+h' as default language. on input line 40.
+
 (./conference_101719.aux)
 \openout1 = `conference_101719.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
 
 -- Lines per column: 56 (exact).
 (/usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count301
-\scratchdimen=\dimen175
-\scratchbox=\box55
-\nofMPsegments=\count302
-\nofMParguments=\count303
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count304
-\MPscratchDim=\dimen176
-\MPnumerator=\count305
-\makeMPintoPDFobject=\count306
-\everyMPtoPDFconversion=\toks24
+\scratchcounter=\count311
+\scratchdimen=\dimen182
+\scratchbox=\box64
+\nofMPsegments=\count312
+\nofMParguments=\count313
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count314
+\MPscratchDim=\dimen183
+\MPnumerator=\count315
+\makeMPintoPDFobject=\count316
+\everyMPtoPDFconversion=\toks25
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -324,48 +392,167 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 83.
+(/usr/local/texlive/2022/texmf-dist/tex/latex/translations/translations-basic-d
+ictionary-english.trsl
+File: translations-basic-dictionary-english.trsl (english translation file `tra
+nslations-basic-dictionary')
+)
+Package translations Info: loading dictionary `translations-basic-dictionary' f
+or `english'. on input line 40.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 69.
 
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 83.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 69.
 
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 83.
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-45.
 
+LaTeX Warning: Citation `lafaurieModellingMergingFragmentation1994' on page 1 u
+ndefined on input line 73.
+
+
+LaTeX Warning: Citation `brackbillContinuumMethodModeling1992' on page 1 undefi
+ned on input line 73.
+
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 7
+3.
+(/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+
+LaTeX Warning: Citation `gueyffierVolumeofFluidInterfaceTracking1999' on page 1
+ undefined on input line 73.
+
+
+Underfull \hbox (badness 4072) in paragraph at lines 73--74
+[]\OT1/ptm/m/n/10 The the-ory in this work re-lies on the Con-tin-uum
+ []
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 73--74
+\OT1/ptm/m/n/10 Sur-face Stress Method ini-tially pre-sented by Lafau-rie
+ []
+
+
+Underfull \hbox (badness 2237) in paragraph at lines 73--74
+\OT1/ptm/m/n/10 et al., ex-tend-ing the works on mod-elling sur-face ten-
+ []
+
+
+Underfull \hbox (badness 3482) in paragraph at lines 73--74
+\OT1/ptm/m/n/10 sion with the Vol-ume of Fluid Method as de-scribed
+ []
+
+
+Underfull \hbox (badness 1946) in paragraph at lines 73--74
+\OT1/ptm/m/n/10 by Brack-bill et al. [\OT1/ptm/b/n/10 ?\OT1/ptm/m/n/10 ], [\OT1
+/ptm/b/n/10 ?\OT1/ptm/m/n/10 ]. This foun-da-tion is mod-i-
+ []
+
+
+Overfull \hbox (55.3077pt too wide) detected at line 86
+[]
+ []
+
+
+LaTeX Warning: Citation `lafaurieModellingMergingFragmentation1994' on page 1 u
+ndefined on input line 88.
+
+
+LaTeX Warning: Citation `j.straubThermokapillareGrenzflachenkonvektionGasblasen
+1990' on page 1 undefined on input line 94.
+
+
+LaTeX Warning: Citation `gueyffierVolumeofFluidInterfaceTracking1999' on page 1
+ undefined on input line 101.
+
+
+LaTeX Warning: Citation `hirtVolumeFluidVOF1981' on page 1 undefined on input l
+ine 101.
+
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
+05.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [1{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-54.
 
-(/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [2]
-<fig1.png, id=18, 82.1469pt x 71.5473pt>
+LaTeX Warning: Citation `hooperMeltPoolTemperature2018' on page 2 undefined on 
+input line 126.
+
+
+LaTeX Warning: Citation `roeCharacteristicBasedSchemesEuler1986' on page 2 unde
+fined on input line 126.
+
+
+LaTeX Warning: Citation `vanleerUltimateConservativeDifference1974' on page 2 u
+ndefined on input line 126.
+
+
+LaTeX Warning: Citation `marmurCorrelatingInterfacialTensions2010' on page 2 un
+defined on input line 130.
+
+
+LaTeX Warning: Citation `girifalcoTheoryEstimationSurface1957' on page 2 undefi
+ned on input line 134.
+
+
+LaTeX Warning: Citation `marmurCorrelatingInterfacialTensions2010' on page 2 un
+defined on input line 140.
+
+[2]
+
+LaTeX Warning: Citation `b7' on page 3 undefined on input line 244.
+
+[3]
+<fig1.png, id=24, 82.1469pt x 71.5473pt>
 File: fig1.png Graphic file (type png)
 <use fig1.png>
-Package pdftex.def Info: fig1.png  used on input line 259.
+Package pdftex.def Info: fig1.png  used on input line 300.
 (pdftex.def)             Requested size: 82.14668pt x 71.5471pt.
-LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 2
-70.
-
-(/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/omsptm.fd
+LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 3
+11.
+ (/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 270.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 311.
 
+
+LaTeX Warning: Citation `b1' on page 4 undefined on input line 324.
+
+
+LaTeX Warning: Citation `b2' on page 4 undefined on input line 325.
+
+
+LaTeX Warning: Citation `b3' on page 4 undefined on input line 326.
+
+
+LaTeX Warning: Citation `b3' on page 4 undefined on input line 326.
+
+
+LaTeX Warning: Citation `b3' on page 4 undefined on input line 326.
+
+
+LaTeX Warning: Citation `b3' on page 4 undefined on input line 327.
+
+
+LaTeX Warning: Citation `b4' on page 4 undefined on input line 335.
+
+
+LaTeX Warning: Citation `b5' on page 4 undefined on input line 336.
+
+
+LaTeX Warning: Citation `b6' on page 4 undefined on input line 341.
+
+No file conference_101719.bbl.
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -377,31 +564,37 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[3 <./fig1.png (PNG copy)>] (./conference_101719.aux) ) 
+[4 <./fig1.png (PNG copy)>] (./conference_101719.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4595 strings out of 478268
- 72381 string characters out of 5846348
- 379438 words of memory out of 5000000
- 22736 multiletter control sequences out of 15000+600000
- 521814 words of font info for 131 fonts, out of 8000000 for 9000
+ 8632 strings out of 478268
+ 186886 string characters out of 5846348
+ 464881 words of memory out of 5000000
+ 26739 multiletter control sequences out of 15000+600000
+ 513580 words of font info for 110 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,11n,62p,660b,303s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022
-/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2022/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw
-/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/u
-tmb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb
-></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/loc
-al/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on conference_101719.pdf (3 pages, 136627 bytes).
+ 71i,11n,79p,993b,513s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texli
+ve/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive
+/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/20
+22/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/tex
+mf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/
+fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type
+1/urw/times/utmbi8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/tim
+es/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on conference_101719.pdf (4 pages, 169141 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 84 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
