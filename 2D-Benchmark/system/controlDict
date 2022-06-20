@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     icoReactingMultiphaseInterFoam;
+application     lpbfFoam;
 
 startFrom       latestTime;
 
