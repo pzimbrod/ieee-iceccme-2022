@@ -70,9 +70,9 @@ This document is a model and instructions for \LaTeX.
 Please observe the conference page limits. 
 \section{Theory}
 
-The theory in this work relies on the Continuum Surface Stress Method initially presented by Lafaurie et al., extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{lafaurieModellingMergingFragmentation1994,brackbillContinuumMethodModeling1992}. This foundation is modified and implemented into the existing OpenFOAM solver \texttt{icoReactingMultiphaseInterFoam} based on Version 2106. The modifications rely on the works of Gueyffier et al. in order to account for the additional Marangoni stresses \cite{gueyffierVolumeofFluidInterfaceTracking1999}. The following presents a brief summary of the modelling involved.
+The theory in this work relies on the Continuum Surface Stress Method initially presented by Lafaurie et al., extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{lafaurieModellingMergingFragmentation1994,brackbillContinuumMethodModeling1992}. This foundation is modified and implemented based on the open source library OpenFOAM based on version 2106. The modifications rely on the works of Gueyffier et al. in order to account for the additional Marangoni stresses \cite{gueyffierVolumeofFluidInterfaceTracking1999}. The following presents a brief summary of the modelling involved.
 
-To describe the necessary tensor algebra, we will use the index notation of tensors in a cartesic coordinate system alongside with the Einstein summation convention where the sum over matching indices is implied. First, the capillary stress tensor is introduced:
+To describe the necessary linear algebra, we will use the index notation of tensors in a cartesic coordinate system alongside with the Einstein summation convention where the sum over matching indices is implied. First, the capillary stress tensor is introduced:
 
 \begin{equation}
     T_{ij} = - \sigma \delta_s (\delta_{ij} - n_i n_j)
