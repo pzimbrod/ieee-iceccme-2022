@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     icoReactingMultiphaseInterFoam;
+application     lpbfFoam;
 
 startFrom       latestTime;
 
@@ -28,7 +28,7 @@ deltaT          0.1;
 
 writeControl    adjustable;
 
-writeInterval   50;
+writeInterval   1;
 
 purgeWrite      0;
 

@@ -24,8 +24,8 @@ refineInterval  1;
 field           alpha.liquid;
 
 // Refine field inbetween lower..upper
-lowerRefineLevel 1e8;
-upperRefineLevel 1e30;
+lowerRefineLevel 0.1;
+upperRefineLevel 0.9;
 
 // If value < unrefineLevel unrefine
 unrefineLevel   20;
@@ -44,10 +44,13 @@ maxCells        1e7;
 // on surfaceScalarFields that do not need to be reinterpolated.
 correctFluxes
 (
+    (alphaPhi.liquid none)
     (phi none)
+    (phi.solid none)
+    (phi_0 none)
     (nHatf none)
     (rhoPhi none)
-    (alphaPhi0.liquid none)
+    (alphaPhi.solid none)
     (ghf none)
     (alphaPhiUn none)
 );
