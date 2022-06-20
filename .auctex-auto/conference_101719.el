@@ -15,6 +15,8 @@
     "amsfonts"
     "algorithmic"
     "graphicx"
+    "url"
+    "orcidlink"
     "siunitx"
     "textcomp"
     "xcolor")
@@ -25,12 +27,9 @@
     "BibTeX")
    (LaTeX-add-labels
     "eq:stress-tensor"
-    "eq:sigmadiff"
-    "AA"
-    "eq"
-    "SCM"
-    "tab1"
-    "fig")
+    "eq:sigmadiff")
+   (LaTeX-add-environments
+    '("IEEEbiography" LaTeX-env-args ["argument"] 1))
    (LaTeX-add-bibliographies
     "mybibfile")
    (LaTeX-add-pagestyles
