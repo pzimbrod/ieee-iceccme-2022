@@ -113,3 +113,5 @@ constant/cellToRegion
 *.blg
 *.log
 *.out
+*.fdb_latexmk
+*.fls

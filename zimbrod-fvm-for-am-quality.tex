@@ -17,6 +17,7 @@
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+\interdisplaylinepenalty=2500
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{url}
@@ -41,7 +42,7 @@
     
 \begin{document}
 \title{\vspace*{1cm} %Efficient simulation of surface tension effects in using an h-adaptive Finite Volume Method \\
-An efficient, h-adaptive Finite Volume solver for advanced quality assessment in metal additive manufacturing processes \\
+An efficient, high-order, adaptive Finite Volume solver for advanced quality assessment in additive manufacturing \\
 }
 
 \author{\IEEEauthorblockN{Patrick Zimbrod\orcidlink{0000-0003-3108-3171}}
@@ -61,7 +62,7 @@ johannes.schilp@uni-a.de}
 \conf{\textit{  Proc. of the International Conference on Electrical, Computer, Communications and Mechatronics Engineering  (ICECCME) \\ 
 16-18 November 2022, Maldives}}
 \begin{abstract}
-We present a free and open source implementation of the Finite Volume Method that captures thermal and solute-driven free-surface flows, more commonly known as Marangoni flows. This type of physics commonly appears within metal additive manufacturing and is known to be challenging to resolve. The application is capable of performing adaptive mesh refinement in order to substantially save computational cost in multiphase flows where accurate tracking of the phase boundaries is crucial. By accurately simulating the temporal evolution of melt pools, unique insight into the physics of melt pool formation is possible that is otherwise hard to gain experimentally. We demonstrate our work by a simple two-dimensional benchmark case and outline possible applications with a mesoscopic model of Laser Powder Bed Fusion additive manufacturing.
+We present a free and open source implementation of the Finite Volume Method that captures thermal and solute-driven free-surface flows, more commonly known as Marangoni flows. This type of physics commonly appears within additive manufacturing and is known to be challenging to resolve. The application is capable of performing adaptive mesh refinement coupled with high order WENO schemes in order to substantially save computational cost in multiphase flows where accurate tracking of the phase boundaries is crucial. By accurately simulating the temporal evolution of melt pools, unique insight into the physics of melt pool formation is possible that is otherwise hard to gain experimentally. We demonstrate our work by a simple two-dimensional benchmark case and outline possible applications with a mesoscopic model of Laser Powder Bed Fusion additive manufacturing.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -84,9 +85,9 @@ To describe the necessary linear algebra, we will use the index notation of tens
 Where $\sigma$ is the generally non constant coefficient of surface tension, $\delta_s$ is the interface delta function, $\delta_{ij}$ is the Kronecker Delta function and $n_i$ is the interface unit normal vector. The local coordinate system of the interface needs to be an orthogonal system in order to separate the purely geometry based capillary force and the tangential Marangoni forces.
 The resulting force accounting for all surface tension effects can now be expressed as the divergence of the capillary stress tensor, yielding:
 
-\begin{align}
+\begin{equation}
     \frac{\partial T_{ij}}{\partial x_j} = \frac{\partial \sigma}{\partial x_j} [\delta_s(\delta_{ij} - n_i n_j)] + \frac{\partial \delta_s}{\partial x_j} [\sigma (\delta_{ij} - n_i n_j)] + \sigma \delta_s \frac{\partial}{\partial x_j} (\delta_{ij} - n_i n_j) \label{eq:stress-tensor}
-\end{align}
+\end{equation}
 
 One can show that Eq. \ref{eq:stress-tensor} can be re-arranged using some tensor algebra and geometric identities into a much shorter and more useful form. The derivation is given in more detail by Lafaurie et al. \cite{lafaurieModellingMergingFragmentation1994}. By performing those rearrangements, we can recover a form that separates the normal from the tangential components of the divergence vector:
 
