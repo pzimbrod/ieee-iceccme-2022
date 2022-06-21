@@ -115,3 +115,6 @@ constant/cellToRegion
 *.out
 *.fdb_latexmk
 *.fls
+
+*.auctex-auto
+*.DS_Store*
