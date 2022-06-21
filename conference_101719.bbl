@@ -1,0 +1,55 @@
+\begin{thebibliography}{10}
+
+\bibitem{lafaurieModellingMergingFragmentation1994}
+B.~Lafaurie, C.~Nardone, R.~Scardovelli, S.~Zaleski, and G.~Zanetti,
+  ``Modelling {{Merging}} and {{Fragmentation}} in {{Multiphase Flows}} with
+  {{SURFER}},'' {\em Journal of Computational Physics}, vol.~113, pp.~134--147,
+  July 1994.
+
+\bibitem{brackbillContinuumMethodModeling1992}
+J.~Brackbill, D.~Kothe, and C.~Zemach, ``A continuum method for modeling
+  surface tension,'' {\em Journal of Computational Physics}, vol.~100,
+  pp.~335--354, June 1992.
+
+\bibitem{gueyffierVolumeofFluidInterfaceTracking1999}
+D.~Gueyffier, J.~Li, A.~Nadim, R.~Scardovelli, and S.~Zaleski,
+  ``Volume-of-{{Fluid Interface Tracking}} with {{Smoothed Surface Stress
+  Methods}} for {{Three-Dimensional Flows}},'' {\em Journal of Computational
+  Physics}, vol.~152, pp.~423--456, July 1999.
+
+\bibitem{j.straubThermokapillareGrenzflachenkonvektionGasblasen1990}
+J.~Straub, A.~Weinzierl, and M.~Zell, ``Thermokapillare
+  {{Grenzfl\"achenkonvektion}} an {{Gasblasen}} in einem
+  {{Temperaturgradientenfeld}},'' {\em W\"arme- und Stoff\"ubertragung},
+  vol.~25, p.~281288, Jan. 1990.
+
+\bibitem{hirtVolumeFluidVOF1981}
+C.~W. Hirt and B.~D. Nichols, ``Volume of fluid ({{VOF}}) method for the
+  dynamics of free boundaries,'' {\em Journal of Computational Physics},
+  vol.~39, pp.~201--225, Jan. 1981.
+
+\bibitem{hooperMeltPoolTemperature2018}
+P.~A. Hooper, ``Melt pool temperature and cooling rates in laser powder bed
+  fusion,'' {\em Additive Manufacturing}, vol.~22, pp.~548--559, Jan. 2018.
+
+\bibitem{roeCharacteristicBasedSchemesEuler1986}
+P.~L. Roe, ``Characteristic-{{Based Schemes}} for the {{Euler Equations}},''
+  {\em Annual Review of Fluid Mechanics}, vol.~18, pp.~337--365, Jan. 1986.
+
+\bibitem{vanleerUltimateConservativeDifference1974}
+B.~{van Leer}, ``Towards the ultimate conservative difference scheme. {{II}}.
+  {{Monotonicity}} and conservation combined in a second-order scheme,'' {\em
+  Journal of Computational Physics}, vol.~14, pp.~361--370, Mar. 1974.
+
+\bibitem{marmurCorrelatingInterfacialTensions2010}
+A.~Marmur and D.~Valal, ``Correlating {{Interfacial Tensions}} with {{Surface
+  Tensions}}: {{A Gibbsian Approach}},'' {\em Langmuir}, vol.~26,
+  pp.~5568--5575, Apr. 2010.
+
+\bibitem{girifalcoTheoryEstimationSurface1957}
+L.~A. Girifalco and R.~J. Good, ``A {{Theory}} for the {{Estimation}} of
+  {{Surface}} and {{Interfacial Energies}}. {{I}}. {{Derivation}} and
+  {{Application}} to {{Interfacial Tension}},'' {\em The Journal of Physical
+  Chemistry}, vol.~61, pp.~904--909, July 1957.
+
+\end{thebibliography}

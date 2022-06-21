@@ -1,51 +1,46 @@
 This is BibTeX, Version 0.99d (TeX Live 2022)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: conference_101719.aux
-I couldn't open style file ieee.bst
----line 40 of file conference_101719.aux
- : \bibstyle{ieee
- :               }
-I'm skipping whatever remains of this command
-I found no style file---while reading file conference_101719.aux
-You've used 17 entries,
-            0 wiz_defined-function locations,
-            112 strings with 1303 characters,
-and the built_in function-call counts, 0 in all, are:
-= -- 0
-> -- 0
+The style file: ieeetr.bst
+Database file #1: mybibfile.bib
+You've used 10 entries,
+            1876 wiz_defined-function locations,
+            558 strings with 5956 characters,
+and the built_in function-call counts, 3313 in all, are:
+= -- 367
+> -- 92
 < -- 0
-+ -- 0
-- -- 0
-* -- 0
-:= -- 0
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
++ -- 35
+- -- 25
+* -- 240
+:= -- 444
+add.period$ -- 10
+call.type$ -- 10
+change.case$ -- 10
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 0
-format.name$ -- 0
-if$ -- 0
+cite$ -- 10
+duplicate$ -- 166
+empty$ -- 278
+format.name$ -- 25
+if$ -- 810
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 0
-num.names$ -- 0
-pop$ -- 0
-preamble$ -- 0
+int.to.str$ -- 10
+missing$ -- 10
+newline$ -- 33
+num.names$ -- 10
+pop$ -- 11
+preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 0
+skip$ -- 160
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 308
+swap$ -- 96
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 0
-(There were 2 error messages)
+while$ -- 38
+width$ -- 12
+write$ -- 102

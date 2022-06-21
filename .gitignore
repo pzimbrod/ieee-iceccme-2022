@@ -109,3 +109,9 @@ constant/cellToRegion
 *.stl
 /GEO
 /STL
+
+*.aux
+*.bbl
+*.blg
+*.log
+*.out

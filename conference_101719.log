@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.5)  20 JUN 2022 17:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.5)  21 JUN 2022 16:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -855,72 +855,25 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 72.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-
-LaTeX Warning: Citation `lafaurieModellingMergingFragmentation1994' on page 1 u
-ndefined on input line 76.
-
-
-LaTeX Warning: Citation `brackbillContinuumMethodModeling1992' on page 1 undefi
-ned on input line 76.
-
-
-LaTeX Warning: Citation `gueyffierVolumeofFluidInterfaceTracking1999' on page 1
- undefined on input line 76.
-
-
 Overfull \hbox (55.3077pt too wide) detected at line 89
 []
  []
 
-
-LaTeX Warning: Citation `lafaurieModellingMergingFragmentation1994' on page 1 u
-ndefined on input line 91.
-
-
-LaTeX Warning: Citation `j.straubThermokapillareGrenzflachenkonvektionGasblasen
-1990' on page 1 undefined on input line 97.
-
-
-LaTeX Warning: Citation `gueyffierVolumeofFluidInterfaceTracking1999' on page 1
- undefined on input line 104.
-
-
-LaTeX Warning: Citation `hirtVolumeFluidVOF1981' on page 1 undefined on input l
-ine 104.
-
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-05.
+02.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [1{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
+(./conference_101719.bbl
+Underfull \hbox (badness 3525) in paragraph at lines 21--25
+[]\OT1/ptm/m/n/8 J. Straub, A. Weinzierl, and M. Zell, ``Thermokap-il-lare Gren
+-
+ []
 
-LaTeX Warning: Citation `hooperMeltPoolTemperature2018' on page 2 undefined on 
-input line 129.
-
-
-LaTeX Warning: Citation `roeCharacteristicBasedSchemesEuler1986' on page 2 unde
-fined on input line 129.
-
-
-LaTeX Warning: Citation `vanleerUltimateConservativeDifference1974' on page 2 u
-ndefined on input line 129.
-
-
-LaTeX Warning: Citation `marmurCorrelatingInterfacialTensions2010' on page 2 un
-defined on input line 133.
-
-
-LaTeX Warning: Citation `girifalcoTheoryEstimationSurface1957' on page 2 undefi
-ned on input line 137.
-
-
-LaTeX Warning: Citation `marmurCorrelatingInterfacialTensions2010' on page 2 un
-defined on input line 143.
-
-(./conference_101719.bbl)
+[2])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -932,78 +885,35 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[2] (./conference_101719.aux)
+[3
 
-LaTeX Warning: There were undefined references.
-
-
-Package rerunfilecheck Warning: File `conference_101719.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `conference_101719.out':
-(rerunfilecheck)             Before: 32CFD1EEE337D9BD5DAD44396BD38028;1698
-(rerunfilecheck)             After:  92258F632DAC1C7CB90B486A21D2F373;381.
+] (./conference_101719.aux)
+Package rerunfilecheck Info: File `conference_101719.out' has not changed.
+(rerunfilecheck)             Checksum: B19DC823759B65175A653D6462EC90B8;475.
  ) 
 Here is how much of TeX's memory you used:
- 25377 strings out of 478268
- 519737 string characters out of 5846348
- 767339 words of memory out of 5000000
- 43169 multiletter control sequences out of 15000+600000
- 504902 words of font info for 91 fonts, out of 8000000 for 9000
+ 25368 strings out of 478268
+ 519925 string characters out of 5846348
+ 766713 words of memory out of 5000000
+ 43158 multiletter control sequences out of 15000+600000
+ 503795 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,13n,94p,993b,878s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{subsection.4.8} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.7} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.6} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.5} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.4} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.3} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.1} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{section.4} has been referenced but does not exist, 
-replaced by a fixed one
-
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
-live/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texl
-ive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texli
-ve/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive
-/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2
-022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/
-texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-dist
-/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/ty
-pe1/urw/times/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ti
-mes/utmri8a.pfb>
-Output written on conference_101719.pdf (2 pages, 123902 bytes).
+ 99i,13n,94p,993b,889s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texli
+ve/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive
+/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/20
+22/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/202
+2/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-di
+st/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/
+times/utmri8a.pfb>
+Output written on conference_101719.pdf (3 pages, 128719 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
- 113 compressed objects within 2 object streams
- 23 named destinations out of 1000 (max. 500000)
- 117 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 137 PDF objects out of 1000 (max. 8388607)
+ 108 compressed objects within 2 object streams
+ 26 named destinations out of 1000 (max. 500000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 
