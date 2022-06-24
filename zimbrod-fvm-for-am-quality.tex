@@ -72,12 +72,10 @@ finite volume method, adaptive refinement, marangoni flow, open source software
 
 \section{Introduction}
 This document is a model and instructions for \LaTeX.
-Please observe the conference page limits. 
 \section{Theory}
 
-The theory in this work relies on the Continuum Surface Stress Method initially presented by Lafaurie et al., extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{lafaurieModellingMergingFragmentation1994,brackbillContinuumMethodModeling1992}. This foundation is modified and implemented based on the open source library OpenFOAM based on version 2106. The modifications rely on the works of Gueyffier et al. in order to account for the additional Marangoni stresses \cite{gueyffierVolumeofFluidInterfaceTracking1999}. The following presents a brief summary of the modelling involved.
-
-To describe the necessary linear algebra, we will use the index notation of tensors in a cartesic coordinate system alongside with the Einstein summation convention where the sum over matching indices is implied. First, the capillary stress tensor is introduced:
+The theory of the proposed implementation relies on the Continuum Surface Stress Method initially presented by Lafaurie et al., extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{lafaurieModellingMergingFragmentation1994,brackbillContinuumMethodModeling1992}.
+To describe the necessary linear algebra, we will use the index notation of tensors in a cartesian coordinate system alongside with the Einstein summation convention where the sum over matching indices is implied. First, the capillary stress tensor is introduced:
 
 \begin{equation}
     T_{ij} = - \sigma \delta_s (\delta_{ij} - n_i n_j)
@@ -115,14 +113,15 @@ The interface unit normal vector $n_i$ can be computed in a similar manner by us
     n_i = \frac{1}{\delta_s} \frac{\partial \alpha}{\partial x_i}
 \end{equation}
 
-To perform the finite volume simulations, the Open Source C++ Library OpenFOAM is used in Version 2106. In order to accommodate the extended surface stress formulation, some of the existing solver capabilities need to be modified. The changes necessary are elaborated on in more detail in the following chapter
+To perform the finite volume simulations, the Open Source C++ Library OpenFOAM is used in Version 2106. In order to accommodate the extended surface stress formulation, some of the existing solver capabilities need to be modified. The changes necessary are elaborated on in more detail in the following chapter.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
 \subsection{Implementation}
 
-Our implementation of the thermo-fluid-dynamic model is based on the Open Source Software library OpenFOAM.
+This foundation is modified and implemented based on the open source library OpenFOAM based on version 2106, which is a popular software library that implements the Finite Volume Method \cite{jasakOpenFOAMLibraryComplex2007}. The modifications rely on the works of Gueyffier et al. in order to account for the additional Marangoni stresses \cite{gueyffierVolumeofFluidInterfaceTracking1999}.
+
 In our proposed implementation, we compute the local gradient of the surface tension explicitly, after it is evaluated for every cell. This means that the gradients with respect to temperature and species concentration are interpolated from the given material properties and the field derivatives are computed separately, unlike Eq. \ref{eq:sigmadiff} suggests.
 As a result, the capillary stress is evaluated regardless of the type of Marangoni flow. That is, temperature as well as species gradients or in other effects causing spacial gradients are regarded in this model and contribute to a resulting tangential stress on the interface. Using this approach, the solver configuration remains flexible regarding the future implementation of other or different type physics. However, an appropriate modelling of the surface tension coefficient is required.
 
@@ -130,7 +129,7 @@ The proposed code computes the divergence of the capillary stress tensor for fin
 
 For powder bed fusion applications where large spacial temperature gradients in the order of \SI[per-mode=fraction]{1e7}{\kelvin \per \metre} can be present \cite{hooperMeltPoolTemperature2018}, it is advisable to use a second order accurate and stable discretisation scheme for the temperature flux, such as the already within OpenFOAM implemented TVD schemes minmod, superBee or vanLeer \cite{roeCharacteristicBasedSchemesEuler1986,vanleerUltimateConservativeDifference1974}.
 
-In order to resolve the complex wetting phenomena and flow patterns in inhomogenous mixtures requires the modelling of several distinct phases. In our case for Ti6Al4V, this equates to a total of $3n +1 =10$ phases including the separate gaseous phase to model the shielding gas flow.
+A very useful property of this approach is that not only thermally driven surface tension effects can be incorporated, but also gradients arising from any kind of inhomogeneity. This means that among others solute-driven effects can also be modelled. This scenario is common in manufacturing processes involving mixing of multiple solvents. Within the context of additive manufacturing, in-situ alloying is a scenario where such effects are not negligible \cite{katz-demyanetzInsituAlloyingNovel2020}.
 
 To account for thermal and solute-driven effects simultaneously, we need to incorporate the temperature dependence of the surface tension as well as interfacial tension between the alloying elements in the liquid state. This allows us to capture not only flow patterns on the liquid-gas interface, but also between liquid interfaces of dissimilar species. We may find accurate values for temperature dependent surface tension in the literature. However, determining interfacial tension poses a non-trivial problem that has been discussed in the literature \cite{marmurCorrelatingInterfacialTensions2010}.
 
@@ -143,6 +142,18 @@ In a pursuit to keep model evaluation simple and not rely on Molecular Dynamics 
 \end{equation}
 
 Here, $\sigma_{1,2}$ denotes the interfacial tension, $\sigma_1$ and $\sigma_2$ are the surface tensions of the involved species and $C$ is a constant which we assume to be unity as a reasonable approximation \cite{marmurCorrelatingInterfacialTensions2010}.
+
+\subsection{Oscillating Droplet in a Temperature Gradient}
+
+We now investigate a simple, two-dimensional benchmark case that illustrates the ability to capture Marangoni effects for the present work.
+
+\subsection{Powderbed-scale physics during selective laser melting}
+
+We now turn to a more complex and relevant simulation setup that appears regularly in additive manufacturing. We aim to investigate the melting, solidification and evaporation behavior of molten metal during the Laser Powder Bed Fusion Process (PBF-LB/M).
+
+\section{Summary}
+
+We expect that the results of this work will help to improve understanding of the complex physics in metal-additive manufacturing substantially. Furthermore, the high fidelity data that can be generated using the proposed solver can be used in order to train physics informed machine learning models. It has previously been shown that such models can speed up simulations by order of magnitudes by execution of a simple forward pass. However, accurate and rich training data are needed in order to train such models. We anticipate that this work can help supply this data and further enhance the field of modelling for complex manufacturing processes.
 
 \section{Data Availability}
 
