@@ -9,42 +9,29 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      p_rgh;
+    class       dictionary;
+    object      setFieldsDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 -1 -2 0 0 0 0];
+defaultFieldValues
+(
+    volScalarFieldValue alpha.liquid 1
+    volScalarFieldValue alpha.gas 0
+);
 
-internalField   uniform 100000;
-
-boundaryField
-{
-    left
+regions
+(
+    cylinderToCell
     {
-        type            fixedFluxPressure;
+        p1 (0 0.005 0.005); p2 (0.001 0.005 0.005); radius 0.00144;
+        fieldValues
+        (
+            volScalarFieldValue alpha.liquid 0
+            volScalarFieldValue alpha.gas 1
+        );
     }
-
-    right
-    {
-        type            fixedFluxPressure;
-    }
-
-    bottom
-    {
-        type            fixedFluxPressure;
-    }
-
-    top
-    {
-        type            fixedFluxPressure;
-    }
-
-    frontAndBack
-    {
-        type            empty;
-    }
-}
+);
 
 
 // ************************************************************************* //

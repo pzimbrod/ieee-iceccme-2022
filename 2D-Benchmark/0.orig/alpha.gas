@@ -10,34 +10,34 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    object      p_rgh;
+    object      alpha.gas;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 -1 -2 0 0 0 0];
+dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform 100000;
+internalField   uniform 1;
 
 boundaryField
 {
     left
     {
-        type            fixedFluxPressure;
+        type            zeroGradient;
     }
 
     right
     {
-        type            fixedFluxPressure;
+        type            zeroGradient;
     }
 
     bottom
     {
-        type            fixedFluxPressure;
+        type            zeroGradient;
     }
 
     top
     {
-        type            fixedFluxPressure;
+        type            zeroGradient;
     }
 
     frontAndBack

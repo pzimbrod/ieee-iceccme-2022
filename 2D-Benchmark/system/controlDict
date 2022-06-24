@@ -16,7 +16,7 @@ FoamFile
 
 libs ( "libWENOEXT.so" );
 
-application     lpbfFoam;
+application     thermocapillaryInterFoam;
 
 startFrom       latestTime;
 

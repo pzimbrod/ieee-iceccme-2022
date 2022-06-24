@@ -9,41 +9,40 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      thermophysicalProperties.solid;
+    class       volScalarField;
+    object      p_rgh;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-thermoType
-{
-    type            heSolidThermo;
-    mixture         pureMixture;
-    transport       constIso;
-    thermo          hConst;
-    equationOfState rhoConst;
-    specie          specie;
-    energy          sensibleEnthalpy;
-}
+dimensions      [1 -1 -2 0 0 0 0];
 
-mixture
+internalField   uniform 100000;
+
+boundaryField
 {
-    specie
+    left
     {
-        nMoles          1;
-        molWeight       50;
+        type            fixedFluxPressure;
     }
-    equationOfState
+
+    right
     {
-        rho             6100;
+        type            fixedFluxPressure;
     }
-    thermodynamics
+
+    bottom
     {
-        Cp              381;
-        Hf              8.016e4;//[J/Kg];
+        type            fixedFluxPressure;
     }
-    transport
+
+    top
     {
-        kappa           32.5;
+        type            fixedFluxPressure;
+    }
+
+    frontAndBack
+    {
+        type            empty;
     }
 }
 

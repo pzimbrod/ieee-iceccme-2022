@@ -118,3 +118,9 @@ constant/cellToRegion
 
 *.auctex-auto
 *.DS_Store*
+
+*WENO*
+!system/WENODict
+
+0*
+!0.orig
