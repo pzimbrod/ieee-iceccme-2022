@@ -27,20 +27,20 @@ gradSchemes
 
 divSchemes
 {
-    div(rhoPhi,U)           Gauss linear;
+    div(rhoPhi,U)           Gauss WENOUpwindFit 3 1;
 
     "div\(alphaPhi.*,Yi\)"  Gauss WENOUpwindFit 3 1;
 
-    "div\(phi,alpha.*\)"    Gauss vanLeer;
-    "div\(phir,alpha.*\)"   Gauss linear;
+    "div\(phi,alpha.*\)"    Gauss WENOUpwindFit 3 1;
+    "div\(phir,alpha.*\)"   Gauss WENOUpwindFit 3 1;
 
-    DDt(phi,alpha)          Gauss vanLeer;
+    DDt(phi,alpha)          Gauss WENOUpwindFit 3 1;
 
     div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
 
     div(phi,T) Gauss linear;
 
-    div(HbyA)               Gauss linear;
+    div(HbyA)               Gauss WENOUpwindFit 3 1;
 
 }
 
