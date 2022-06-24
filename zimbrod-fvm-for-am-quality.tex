@@ -143,6 +143,8 @@ In a pursuit to keep model evaluation simple and not rely on Molecular Dynamics 
 
 Here, $\sigma_{1,2}$ denotes the interfacial tension, $\sigma_1$ and $\sigma_2$ are the surface tensions of the involved species and $C$ is a constant which we assume to be unity as a reasonable approximation \cite{marmurCorrelatingInterfacialTensions2010}.
 
+In order to approximate the differential terms in the governing equations efficiently, we use high order weighted essentially non-oscillatory (WENO) schemes that have been developed separately for OpenFOAM by Gärtner et al. \cite{gartnerEfficientWENOLibrary2020,martinImplementationValidationSemiImplicit2018}.
+
 \subsection{Oscillating Droplet in a Temperature Gradient}
 
 We now investigate a simple, two-dimensional benchmark case that illustrates the ability to capture Marangoni effects for the present work.
