@@ -14,39 +14,42 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+sigma0 0.01;    // N/m
+sigma1 0.002;   // N/(m K)
+
 type    massTransferMultiphaseSystem;
 
-phases  (solid liquid);
+phases  (gas liquid);
 
 liquid
 {
     type            pureMovingPhaseModel;
 }
 
-solid
+gas
 {
-    type            pureStaticSolidPhaseModel;
+    type            pureMovingPhaseModel;
 }
 
-interfacePorous
+surfaceTension
 (
-    (solid and liquid)
+    (gas and liquid)
     {
-        type            VollerPrakash;
-        solidPhase      alpha.solid;
-        Cu              1e7;
+        type        temperatureDependent;
+        sigma
+        {
+            type            temperatureDependent;
+            sigma           polynomial
+            (
+                ( $sigma0 0)
+                ( $sigma1 1)
+            );
+        }
     }
 );
 
 massTransferModel
 (
-    (solid to liquid)
-    {
-        type            Lee;
-        C               40;
-        Tactivate       302.78;
-    }
 );
-
 
 // ************************************************************************* //
