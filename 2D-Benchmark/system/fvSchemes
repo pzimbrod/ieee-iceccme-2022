@@ -14,6 +14,9 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+//divScheme Gauss WENOUpwindFit 2 1;
+divScheme Gauss linear;
+
 ddtSchemes
 {
     default         Euler;
@@ -27,20 +30,22 @@ gradSchemes
 
 divSchemes
 {
-    div(rhoPhi,U)           Gauss WENOUpwindFit 3 1;
+    div(rhoPhi,U)           $divScheme;
 
-    "div\(alphaPhi.*,Yi\)"  Gauss WENOUpwindFit 3 1;
+    "div\(alphaPhi.*,Yi\)"  $divScheme;
 
-    "div\(phi,alpha.*\)"    Gauss WENOUpwindFit 3 1;
-    "div\(phir,alpha.*\)"   Gauss WENOUpwindFit 3 1;
+    "div\(phi,alpha.*\)"    $divScheme;
+    "div\(phir,alpha.*\)"   $divScheme;
 
-    DDt(phi,alpha)          Gauss WENOUpwindFit 3 1;
+    "div\(.*1.*\)"          $divScheme;
 
-    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+    DDt(phi,alpha)          $divScheme;
 
-    div(phi,T) Gauss linear;
+    div(((rho*nuEff)*dev2(T(grad(U))))) $divScheme;
 
-    div(HbyA)               Gauss WENOUpwindFit 3 1;
+    div(phi,T)              $divScheme;
+
+    div(HbyA)               $divScheme;
 
 }
 

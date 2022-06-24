@@ -11,6 +11,7 @@ runApplication decomposePar
 runParallel topoSet
 runParallel refineMesh -overwrite -dict system/refineMeshDict
 runParallel setFields
+runParallel setExprFields
 runParallel renumberMesh -overwrite
 runParallel $(getApplication)
 

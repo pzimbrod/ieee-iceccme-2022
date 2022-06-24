@@ -1,0 +1,53 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      setExprFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+expressions
+(
+    T
+    {
+        field       T;
+        dimensions  [0 0 0 1 0 0 0];
+
+        constants
+        {
+        }
+
+        variables
+        (
+            "T_lower = 290"
+            "T_upper = 291.152"
+            "a = 1.44e-3"
+        );
+
+        condition
+        #{
+            true // on all cells of the internal field
+        #};
+
+        expression
+        #{
+			  (T_lower + T_upper)/2 + pos().z() * (T_upper - T_lower)/(4*a)
+//			  1 - pos().y()
+//			  mag(pos() - $[(vector)constants.centre])
+//			  mag(pos().y() - $[(vector)constants.centre].y())
+//            0.5 + 0.5 * (1 - mag(pos() - $[(vector)constants.centre]) / radius)
+        #};
+    }
+);
+
+
+// ************************************************************************* //

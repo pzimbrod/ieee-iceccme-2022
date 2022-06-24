@@ -27,7 +27,7 @@ solvers
     {
         nAlphaCorr      1;
         nAlphaSubCycles 2;
-        cAlphas         ((liquid and solid)  0);
+        cAlphas         ((liquid and gas)  0);
 
         solver          smoothSolver;
         smoother        symGaussSeidel;
@@ -89,6 +89,8 @@ PIMPLE
     nOuterCorrectors    1;
     nCorrectors         3;
     nNonOrthogonalCorrectors 1;
+    pRefCell    0;
+    pRefValue    0;
 }
 
 relaxationFactors
