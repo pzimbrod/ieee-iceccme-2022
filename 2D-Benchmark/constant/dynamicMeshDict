@@ -21,20 +21,20 @@ dynamicFvMesh   dynamicRefineFvMesh;
 refineInterval  1;
 
 // Field to be refinement on
-field           alpha.liquid;
+field           alpha.solid;
 
 // Refine field inbetween lower..upper
-lowerRefineLevel 0.1;
-upperRefineLevel 0.9;
+lowerRefineLevel 0.49;
+upperRefineLevel 0.51;
 
 // If value < unrefineLevel unrefine
-unrefineLevel   20;
+unrefineLevel   0.49;
 
 // Have slower than 2:1 refinement
 nBufferLayers   1;
 
 // Refine cells only up to maxRefinement levels
-maxRefinement   2;
+maxRefinement   3;
 
 // Stop refinement if maxCells reached
 maxCells        1e7;

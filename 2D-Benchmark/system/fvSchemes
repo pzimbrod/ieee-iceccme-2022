@@ -29,7 +29,7 @@ divSchemes
 {
     div(rhoPhi,U)           Gauss linear;
 
-    "div\(alphaPhi.*,Yi\)"  Gauss linear;
+    "div\(alphaPhi.*,Yi\)"  Gauss WENOUpwindFit 3 1;
 
     "div\(phi,alpha.*\)"    Gauss vanLeer;
     "div\(phir,alpha.*\)"   Gauss linear;

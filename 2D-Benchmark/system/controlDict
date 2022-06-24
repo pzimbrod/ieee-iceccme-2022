@@ -14,6 +14,8 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+libs ( "libWENOEXT.so" );
+
 application     lpbfFoam;
 
 startFrom       latestTime;
@@ -48,13 +50,13 @@ adjustTimeStep  yes;
 
 maxDeltaT       1;
 
-maxCo           1.;
+maxCo           0.6;
 
-maxAlphaCo      1.;
+maxAlphaCo      0.5;
 
 maxAlphaDdt     2.3;
 
-maxDi           25;
+maxDi           2e2;
 
 
 // ************************************************************************* //
