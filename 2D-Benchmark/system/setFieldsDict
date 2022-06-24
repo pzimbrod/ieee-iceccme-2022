@@ -14,6 +14,10 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+a 1.44e-3;
+radius #calc "$a/2";
+depth2D 1e-4;
+
 defaultFieldValues
 (
     volScalarFieldValue alpha.liquid 1
@@ -24,7 +28,7 @@ regions
 (
     cylinderToCell
     {
-        p1 (0 0.005 0.005); p2 (0.001 0.005 0.005); radius 0.00144;
+        p1 (0 0 0); p2 ($depth2D 0 0); radius $radius;
         fieldValues
         (
             volScalarFieldValue alpha.liquid 0

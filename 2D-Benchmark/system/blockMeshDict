@@ -14,18 +14,21 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-scale   0.01;
+a 1.44e-3;
+xmin #calc "-2 * $a";
+xmax #calc "2 * $a";
+depth2D 1e-4;
 
 vertices
 (
-    (0 0 0)
-    (0.1 0 0)
-    (0.1 1 0)
-    (0 1 0)
-    (0 0 1)
-    (0.1 0 1)
-    (0.1 1 1)
-    (0 1 1)
+    (0 $xmin $xmin)
+    ($depth2D $xmin $xmin)
+    ($depth2D $xmax $xmin)
+    (0 $xmax $xmin)
+    (0 $xmin $xmax)
+    ($depth2D $xmin $xmax)
+    ($depth2D $xmax $xmax)
+    (0 $xmax $xmax)
 );
 
 blocks
