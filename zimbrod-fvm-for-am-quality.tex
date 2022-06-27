@@ -43,7 +43,7 @@
     
 \begin{document}
 \title{\vspace*{1cm} %Efficient simulation of surface tension effects in using an h-adaptive Finite Volume Method \\
-An efficient, high-order, adaptive Finite Volume solver for physical modelling in advanced manufacturing processes\\
+An efficient, high-order, adaptive Finite Volume solver for modelling fluid behavior in advanced manufacturing processes\\
 }
 
 \author{\IEEEauthorblockN{Patrick Zimbrod\orcidlink{0000-0003-3108-3171}}
@@ -71,7 +71,17 @@ finite volume method, adaptive refinement, marangoni flow, open source software
 \end{IEEEkeywords}
 
 \section{Introduction}
-This document is a model and instructions for \LaTeX.
+
+Accurate modelling of complex physics has received considerable attention within the last two decades.
+This can mostly be attributed to the fact that an increased understanding of the phenomena relevant for manufacturing directly leads to more finely tuned or even new processes that tend to increase output quality.
+
+Two such examples that shall serve as a guideline for this work are microfluidic applications and additive manufacturing of metals.
+Both groups of processes are characterized by complex flow phenomena that involve several physical phenomena on a microscopic scale. The fact that those effects tend to have fast dynamics further complicates the analysis. This leads to an increased amount of empirical effort necessary to capture and quantify the flow patterns involved.
+
+Hence, simulation has gained considerable traction as an alternative to extensive experimental research. Within computational simulation frameworks, the involved physics can be precisely monitored, even to a nanoseconds scale, which would oftentimes be probhibitively expensive. At the same time, a considerable drawback of this approach is the additional amount of work that has to be put into the mathematical modelling of the involved physics. Especially within fluid dynamics, gaining a stable as well as accurate solution can oftentimes be challenging, as the resulting set of partial differential equations can have a small stability region in the temporal domain.
+
+Therefore in this work, we propose and demonstrate a performant, free and open source software framework based on the Finite Volume method that is able to capture complex, non-isothermal surface flows. We discuss the necessary mathematical modelling and briefly address
+
 \section{Theory}
 
 The theory of the proposed implementation relies on the Continuum Surface Stress Method initially presented by Lafaurie et al., extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{lafaurieModellingMergingFragmentation1994,brackbillContinuumMethodModeling1992}.
@@ -116,14 +126,18 @@ The interface unit normal vector $n_i$ can be computed in a similar manner by us
 To perform the finite volume simulations, the Open Source C++ Library OpenFOAM is used in Version 2106. In order to accommodate the extended surface stress formulation, some of the existing solver capabilities need to be modified. The changes necessary are elaborated on in more detail in the following chapter.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Methods}
+
+First, we examine a well-known setup proposed by Ma et al. that models the flow around a stationary bubble subject to a temperature gradient \cite{maDirectNumericalSimulation2011}. We aim to accurately predict the velocity field that arises due to marangoni convection at the interface.
+
+We then proceed to investigate the mesoscopic nanosecond dynamics during selective laser melting of steel, a common problem within additive manufacturing. Here, we show that our implementation is able to handle geometrically and physically complex simulations in 3D.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
 \subsection{Implementation}
 
 This foundation is modified and implemented based on the open source library OpenFOAM based on version 2106, which is a popular software library that implements the Finite Volume Method \cite{jasakOpenFOAMLibraryComplex2007}. The modifications rely on the works of Gueyffier et al. in order to account for the additional Marangoni stresses \cite{gueyffierVolumeofFluidInterfaceTracking1999}.
-
-In our proposed implementation, we compute the local gradient of the surface tension explicitly, after it is evaluated for every cell. This means that the gradients with respect to temperature and species concentration are interpolated from the given material properties and the field derivatives are computed separately, unlike Eq. \ref{eq:sigmadiff} suggests.
-As a result, the capillary stress is evaluated regardless of the type of Marangoni flow. That is, temperature as well as species gradients or in other effects causing spacial gradients are regarded in this model and contribute to a resulting tangential stress on the interface. Using this approach, the solver configuration remains flexible regarding the future implementation of other or different type physics. However, an appropriate modelling of the surface tension coefficient is required.
 
 The proposed code computes the divergence of the capillary stress tensor for finite volume cell centers. However, to handle source terms within the PIMPLE loop, it is necessary to also supply the surface tension force as a scalar interpolated to the cell face. Therefore, an additional method is implemented that computes the $L_2$ norm of the surface tension force vector and interpolates the scalar value via finite differencing.
 
