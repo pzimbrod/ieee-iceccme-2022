@@ -19,7 +19,7 @@ sigma1 0.002;   // N/(m K)
 
 type    massTransferMultiphaseSystem;
 
-phases  (gas liquid);
+phases  (phase1 phase2);
 
 liquid
 {
@@ -33,7 +33,7 @@ gas
 
 surfaceTension
 (
-    (gas and liquid)
+    (phase1 and phase2)
     {
         type        temperatureDependent;
         sigma
