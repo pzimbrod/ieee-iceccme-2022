@@ -1,0 +1,3 @@
+[submodule "lpbfFoam"]
+	path = lpbfFoam
+	url = git@github.com:pzimbrod/lpbfFoam.git

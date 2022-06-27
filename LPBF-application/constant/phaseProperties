@@ -1,0 +1,111 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      phaseProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+type    massTransferMultiphaseSystem;
+
+phases  (solid liquid gas);
+
+solid
+{
+    type            pureStaticSolidPhaseModel;
+}
+liquid
+{
+    type            pureMovingPhaseModel;
+}
+
+gas
+{
+    type            multiComponentMovingPhaseModel;
+}
+
+surfaceTension
+(
+    (gas and liquid) // NIST ASM Handbook Hastelloy X
+    {
+        type            temperatureDependent;
+        sigma
+        {
+            type            temperatureDependent;
+            sigma           polynomial
+            (
+                ( 1.908 0)
+                ( -16.216e-6 1)
+            );
+            // - fitted so that sigma(T=1700) = 1.88
+        }
+    }
+
+    (gas and solid)
+    {
+        type            constant;
+        sigma           0;
+    }
+    
+    (liquid and solid) // 10.1007/s10853-005-1939-2
+    {
+        type            temperatureDependent;
+        sigma
+        {
+            type            temperatureDependent;
+            sigma           polynomial
+            (
+                ( 1.908 0)
+                ( -16.216e-6 1)
+            );
+            // - fitted so that sigma(T=1700) = 1.88
+        }
+    }
+);
+
+interfacePorous
+(
+    (solid and liquid)
+    {
+        type            VollerPrakash;
+        solidPhase      alpha.solid;
+        Cu              1e7;
+    }
+);
+
+massTransferModel
+(
+    /*(liquid to gas)
+    {
+        type            kineticGasEvaporation; // aus meltingEvaporationModels
+        species         vapour.gas;
+        C               0.1;    // C > 0 für Verdampfung
+        isoAlpha        0.1
+        Tactivate       2500;
+    }*/
+
+    (solid to liquid)
+    {
+        type            Lee;
+        C               1e7;
+        Tactivate       1710; // 10.3390/cryst11080856
+    }
+
+    (liquid to solid)
+    {
+        type            Lee;
+        C               -1e7;
+        Tactivate       1684; // 10.3390/cryst11080856
+    }
+);
+
+
+// ************************************************************************* //

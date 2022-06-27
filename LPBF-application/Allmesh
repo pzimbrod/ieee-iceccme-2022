@@ -1,0 +1,7 @@
+#!/bin/bash
+
+numProcs = grep ^cpu\\scores /proc/cpuinfo | uniq |  awk '{print $4}'
+
+for filename in GEO/*.geo; do
+    gmsh GEO/$(basename "$filename") -3 -clmin 0.01 -o STL/$(basename "$filename" .geo).stl
+done

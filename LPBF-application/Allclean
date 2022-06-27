@@ -1,0 +1,19 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+dir=${PWD##*/}
+
+echo "--------"
+echo "Cleaning ${dir}s ..."
+rm -rf 0
+rm -rf processor*
+echo "Removing logs"
+rm -rf log.*
+echo "Removing Lagrangian outputs"
+rm -rf *.obj
+
+foamCleanTutorials cases
+
+echo "--------"
+
+#------------------------------------------------------------------------------

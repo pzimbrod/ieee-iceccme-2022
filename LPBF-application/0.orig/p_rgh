@@ -1,0 +1,55 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      p_rgh;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions          [ 1 -1 -2 0 0 0 0 ];
+
+    pressureDiff    7000;   // in Pa
+    argonDensity    1.784;  // kg/m3 from Wikipedia
+
+    internalField       uniform 0; //incompressible fluids, therefore ambient
+
+    boundaryField
+    {
+        inlet 
+        {
+            type            prghTotalPressure;
+            p0              $internalField;
+            value           uniform $pressureDiff;
+        }
+    
+        outlet
+        {
+            type            prghTotalPressure;
+            p0              $internalField;
+            value           uniform 0;
+        }
+    
+        solidBottom
+        {
+            type            fixedFluxPressure;
+            p0              $internalField;
+            value           uniform 0;
+        }
+    
+        walls
+        {
+            type            fixedFluxPressure;
+            p0              $internalField;
+            value           uniform 0;
+        }
+    }
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

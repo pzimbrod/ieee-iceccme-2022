@@ -1,0 +1,52 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      thermophysicalProperties.solid;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+thermoType
+{
+    type            heSolidThermo;
+    mixture         pureMixture;
+    transport       polynomial;
+    thermo          hPolynomial;
+    equationOfState icoPolynomial; //rhoConst;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+
+mixture
+{
+    specie
+    {
+        nMoles          1;
+        molWeight       55.669; //Molmasse von reinem Stahl mit 0,4% C-Gehalt
+    }
+    equationOfState //Thermodynamische Daten aus NIST ASM Handbook (316L)
+    {
+        rhoCoeffs<8>    ( 7950 0 0 0 0 0 0 0 ); //Dichte von 316L bei RT
+    }
+    thermodynamics  //Thermodynamische Daten aus NIST ASM Handbook (316L)
+    {
+        Hf              2.6e5; //J/kg
+        Sf              0;
+        CpCoeffs<8>     ( 412 2e-1 -2e-5 0 0 0 0 0 );   // J/(kg K)
+    }
+    transport       //Thermodynamische Daten aus NIST ASM Handbook (316L)
+    {
+        // muCoeffs<8>     ( 0 0 0 0 0 0 0 0 ); 
+        kappaCoeffs<8>  ( 6.31 27.2e-3 -7e-6 0 0 0 0 0 );
+    }
+}
+
+// ************************************************************************* //
