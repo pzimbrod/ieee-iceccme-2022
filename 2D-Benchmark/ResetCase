@@ -6,7 +6,7 @@ dir=${PWD##*/}
 echo "--------"
 echo "Cleaning ${dir}s ..."
 rm -rf 0
-rm -rf 0.*
+rm -rf 0.[0-9]*
 rm -rf [1-9]*
 rm -rf processor*.[1-9]*
 rm -rf processor*.0.*

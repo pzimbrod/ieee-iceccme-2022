@@ -8,11 +8,11 @@ cp -r 0.orig 0
 
 runApplication blockMesh
 runApplication decomposePar
-runApplication topoSet
-runApplication refineMesh -overwrite -dict system/refineMeshDict
-runApplication setFields
-runApplication setExprFields
-runApplication renumberMesh -overwrite
-runApplication $(getApplication)
+runParallel topoSet
+runParallel refineMesh -overwrite -dict system/refineMeshDict
+runParallel setFields
+runParallel setExprFields
+runParallel renumberMesh -overwrite
+runParallel $(getApplication)
 
 #------------------------------------------------------------------------------

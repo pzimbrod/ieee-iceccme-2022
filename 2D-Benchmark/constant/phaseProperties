@@ -14,19 +14,19 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-sigma0 0.01;    // N/m
+sigma0 -0.57;    // N/m         - calculated so that sigma(T=290) = 0.01
 sigma1 0.002;   // N/(m K)
 
 type    massTransferMultiphaseSystem;
 
 phases  (phase1 phase2);
 
-liquid
+phase1
 {
     type            pureMovingPhaseModel;
 }
 
-gas
+phase2
 {
     type            pureMovingPhaseModel;
 }

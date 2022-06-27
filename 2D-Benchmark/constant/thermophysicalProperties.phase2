@@ -20,7 +20,7 @@ thermoType
     mixture         pureMixture;
     transport       const;
     thermo          hConst;
-    equationOfState Boussinesq;
+    equationOfState rhoConst;
     specie          specie;
     energy          sensibleEnthalpy;
 }
@@ -30,25 +30,24 @@ mixture
     specie
     {
         nMoles          1;
-        molWeight       50;
+        molWeight       1;
     }
     equationOfState
     {
-        beta            1.2e-4;
-        rho0            6100;
-        T0              301.3;
+        rho             500;
     }
     thermodynamics
     {
-        Cp              381;
         Hf              0;
+        Cp              1e-4;
     }
+
     transport
     {
-        mu              2.8e-3;
-        Pr              0.031;
+        mu              0.024;
+        //kappa           2.4e-6;
+        Pr              1; // Pr = (mu Cp)/lambda
     }
 }
-
 
 // ************************************************************************* //

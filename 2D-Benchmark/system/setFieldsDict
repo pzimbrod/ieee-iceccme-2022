@@ -20,8 +20,8 @@ depth2D 1e-4;
 
 defaultFieldValues
 (
-    volScalarFieldValue alpha.liquid 1
-    volScalarFieldValue alpha.gas 0
+    volScalarFieldValue alpha.phase1 1
+    volScalarFieldValue alpha.phase2 0
 );
 
 regions
@@ -31,8 +31,8 @@ regions
         p1 (0 0 0); p2 ($depth2D 0 0); radius $radius;
         fieldValues
         (
-            volScalarFieldValue alpha.liquid 0
-            volScalarFieldValue alpha.gas 1
+            volScalarFieldValue alpha.phase1 0
+            volScalarFieldValue alpha.phase2 1
         );
     }
 );

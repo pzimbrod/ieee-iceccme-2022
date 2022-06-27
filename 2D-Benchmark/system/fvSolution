@@ -27,7 +27,7 @@ solvers
     {
         nAlphaCorr      1;
         nAlphaSubCycles 2;
-        cAlphas         ((liquid and gas)  0);
+        cAlphas         ((phase1 and phase2)  0);
 
         solver          smoothSolver;
         smoother        symGaussSeidel;

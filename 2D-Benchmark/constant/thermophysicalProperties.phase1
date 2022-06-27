@@ -20,7 +20,7 @@ thermoType
     mixture         pureMixture;
     transport       const;
     thermo          hConst;
-    equationOfState incompressiblePerfectGas;
+    equationOfState rhoConst;
     specie          specie;
     energy          sensibleEnthalpy;
 }
@@ -29,22 +29,24 @@ mixture
 {
     specie
     {
-        nMoles      1;
-        molWeight   1; 
+        nMoles          1;
+        molWeight       1;
     }
     equationOfState
     {
-        pRef         1e5;
+        rho             250;
     }
     thermodynamics
     {
-        Hf          0; //[J/kg]
-        Cp          1900;
+        Hf              0;
+        Cp              5e-5;
     }
+
     transport
     {
-        mu          1.8e-05;
-        Pr          0.7;
+        mu              0.012;
+        //kappa           1.2e-6;
+        Pr              0.5; // Pr = (mu Cp)/lambda
     }
 }
 
