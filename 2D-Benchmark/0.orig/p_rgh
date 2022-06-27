@@ -22,12 +22,12 @@ boundaryField
 {
     left
     {
-        type            fixedFluxPressure;
+        type            symmetry;
     }
 
     right
     {
-        type            fixedFluxPressure;
+        type            symmetry;
     }
 
     bottom

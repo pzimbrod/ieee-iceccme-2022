@@ -44,7 +44,7 @@ boundary
 (
     left
     {
-        type wall;
+        type symmetry;
         faces
         (
             (3 7 6 2)
@@ -52,7 +52,7 @@ boundary
     }
     right
     {
-        type wall;
+        type symmetry;
         faces
         (
             (1 5 4 0)
