@@ -10,39 +10,19 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      refineMeshDict;
+    object      decomposeParDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-set             bubble;
+numberOfSubdomains 18;
 
-coordinateSystem global;
+method          scotch;
 
-globalCoeffs
+/*
+coeffs
 {
-    tan1            (0 1 0);
-    tan2            (0 0 1);
+    n           (2 2 1);
 }
-
-patchLocalCoeffs
-{
-    patch           outside;
-    tan1            (1 0 0);
-}
-
-directions
-(
-    tan1
-    tan2
-    normal
-);
-
-useHexTopology  no;
-
-geometricCut    yes;
-
-writeMesh       no;
-
+*/
 
 // ************************************************************************* //

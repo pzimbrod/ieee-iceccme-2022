@@ -9,6 +9,10 @@ cp -r 0.orig 0
 runApplication blockMesh
 runApplication decomposePar
 runApplication topoSet
+rm -rf log.topoSet
+runApplication refineMesh -overwrite -dict system/refineMeshDict
+rm -rf log.refineMesh
+runApplication topoSet
 runApplication refineMesh -overwrite -dict system/refineMeshDict
 runApplication setFields
 runApplication setExprFields
