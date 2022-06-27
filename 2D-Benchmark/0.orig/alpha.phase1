@@ -22,12 +22,12 @@ boundaryField
 {
     left
     {
-        type            symmetry;
+        type            zeroGradient;
     }
 
     right
     {
-        type            symmetry;
+        type            zeroGradient;
     }
 
     bottom

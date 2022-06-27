@@ -7,12 +7,12 @@ cd ${0%/*} || exit 1    # Run from this directory
 cp -r 0.orig 0
 
 runApplication blockMesh
-runApplication topoSet
-rm -rf log.topoSet
-runApplication refineMesh -overwrite -dict system/refineMeshDict
-rm -rf log.refineMesh
-runApplication topoSet
-runApplication refineMesh -overwrite -dict system/refineMeshDict
+#runApplication topoSet
+#rm -rf log.topoSet
+#runApplication refineMesh -overwrite -dict system/refineMeshDict
+#rm -rf log.refineMesh
+#runApplication topoSet
+#runApplication refineMesh -overwrite -dict system/refineMeshDict
 runApplication setFields
 runApplication setExprFields
 runApplication renumberMesh -overwrite

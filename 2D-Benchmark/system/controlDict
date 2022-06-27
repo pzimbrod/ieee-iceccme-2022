@@ -46,7 +46,7 @@ timePrecision   6;
 
 runTimeModifiable yes;
 
-adjustTimeStep  yes;
+adjustTimeStep  no;
 
 maxDeltaT       1;
 

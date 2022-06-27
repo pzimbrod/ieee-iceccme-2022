@@ -22,7 +22,7 @@ boundaryField
 {
     left
     {
-        type            symmetry;
+        type            noSlip;
     }
 
     top
@@ -37,7 +37,7 @@ boundaryField
 
     right
     {
-        type            symmetry;
+        type            noSlip;
     }
 
     frontAndBack

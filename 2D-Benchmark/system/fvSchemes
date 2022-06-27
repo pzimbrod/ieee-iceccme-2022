@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2106                                 |
+|  \\    /   O peration     | Version:  v2006                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -10,49 +10,40 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
+    location    "system";
     object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-//divScheme Gauss WENOUpwindFit 2 1;
-divScheme Gauss linear;
-
 ddtSchemes
 {
     default         Euler;
+    //default           CrankNicolson 0.9;
 }
 
 gradSchemes
 {
-    default         cellLimited Gauss linear 1;
-    grad(U)         cellLimited Gauss linear 1;
+    default         leastSquares;
 }
 
 divSchemes
 {
-    div(rhoPhi,U)           $divScheme;
+    div(rhoPhi,U)           Gauss linearUpwind grad(U);
+    "div\(phi,alpha.*\)"    Gauss vanLeer;
+    "div\(phir,alpha.*\)"   Gauss linear;
 
-    "div\(alphaPhi.*,Yi\)"  $divScheme;
+    "div\(Yiphir,alpha.*\)" Gauss linear;
+    "div\(phi,.*\.gas.*\)"  Gauss vanLeer;
 
-    "div\(phi,alpha.*\)"    $divScheme;
-    "div\(phir,alpha.*\)"   $divScheme;
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
 
-    "div\(.*1.*\)"          $divScheme;
-
-    DDt(phi,alpha)          $divScheme;
-
-    div(((rho*nuEff)*dev2(T(grad(U))))) $divScheme;
-
-    div(phi,T)              $divScheme;
-
-    div(HbyA)               $divScheme;
-
+    "div\(.*1.*\)"          Gauss linear;
+    div(phi,T)              Gauss linearUpwind grad(T);
 }
 
 laplacianSchemes
 {
-    //default             Gauss linear orthogonal;
-    default               Gauss linear limited 1;
+    default         Gauss linear orthogonal;
 }
 
 interpolationSchemes
@@ -63,15 +54,12 @@ interpolationSchemes
 snGradSchemes
 {
     default         orthogonal;
-    //default               Gauss linear limited 1;
 }
 
 fluxRequired
 {
     default         no;
     p_rgh             ;
-    "alpha.*"         ;
+    "alpha.*";
 }
-
-
 // ************************************************************************* //

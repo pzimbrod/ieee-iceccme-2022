@@ -35,6 +35,17 @@ regions
             volScalarFieldValue alpha.phase2 1
         );
     }
+    /*
+    boxToCell
+    {
+        box (0 -$a -$a) ($depth2D $a $a);
+        fieldValues
+        (
+            volScalarFieldValue alpha.phase1 0
+            volScalarFieldValue alpha.phase2 1
+        );
+    }
+    */
 );
 
 

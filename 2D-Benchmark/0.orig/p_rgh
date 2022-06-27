@@ -16,18 +16,18 @@ FoamFile
 
 dimensions      [1 -1 -2 0 0 0 0];
 
-internalField   uniform 100000;
+internalField   uniform 0;
 
 boundaryField
 {
     left
     {
-        type            symmetry;
+        type            fixedFluxPressure;
     }
 
     right
     {
-        type            symmetry;
+        type            fixedFluxPressure;
     }
 
     bottom
