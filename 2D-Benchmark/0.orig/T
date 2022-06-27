@@ -14,6 +14,11 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+a       1.44e-3;
+length  #calc "4 * $a";
+T1      290;
+gradT   200;
+
 dimensions      [0 0 0 1 0 0 0];
 
 internalField   uniform 290;
@@ -33,13 +38,13 @@ boundaryField
     bottom
     {
         type            fixedValue;
-        value           uniform 290;
+        value           uniform $T1;
     }
 
     top
     {
         type            fixedValue;
-        value           uniform 291.152;
+        value           uniform #calc "$T1 + $length * $gradT";
     }
 
     frontAndBack
