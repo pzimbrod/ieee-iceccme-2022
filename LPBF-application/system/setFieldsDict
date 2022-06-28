@@ -48,7 +48,7 @@ regions
    
     boxToCell
     {
-        box (-0.00002 -0.00002 -0.0005) (0.00202 0.00032 0);
+        box (-0.00002 -0.00002 -0.0005) (0.000502 0.00032 0);
         fieldValues
         (
         volScalarFieldValue alpha.solid 1
