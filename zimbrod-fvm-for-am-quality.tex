@@ -77,7 +77,7 @@ Accurate modelling of complex physics has received considerable attention within
 This can mostly be attributed to the fact that an increased understanding of the phenomena relevant for manufacturing directly leads to more finely tuned or even new processes that tend to increase output quality.
 
 Two such examples that shall serve as a guideline for this work are microfluidic applications and additive manufacturing of metals.
-Both groups of processes are characterized by complex flow phenomena that involve several physical phenomena on a microscopic scale. The fact that those effects tend to have fast dynamics further complicates the analysis. This leads to an increased amount of empirical effort necessary to capture and quantify the flow patterns involved.
+Both groups of processes are characterized by complex flow phenomena that involve several physical phenomena on a microscopic scale \cite{sackmannPresentFutureRole,debroyAdditiveManufacturingMetallic2018}. The fact that those effects tend to have fast dynamics further complicates the analysis \cite{khairallahControllingInterdependentMesonanosecond2020}. This leads to an increased amount of empirical effort necessary to capture and quantify the flow patterns involved.
 
 Hence, simulation has gained considerable traction as an alternative to extensive experimental research. Within computational simulation frameworks, the involved physics can be precisely monitored, even to a nanoseconds scale, which would oftentimes be probhibitively expensive. At the same time, a considerable drawback of this approach is the additional amount of work that has to be put into the mathematical modelling of the involved physics. Especially within fluid dynamics, gaining a stable as well as accurate solution can oftentimes be challenging, as the resulting set of partial differential equations can have a small stability region in the temporal domain.
 
@@ -222,7 +222,7 @@ We now turn to a more complex and relevant simulation setup that appears regular
 
 This case shall serve as a showcase of a physically complex problem that involves phase changes, simultaneous handling of solid, liquid and gaseous phases (and hence strong pressure gradients) as well as spatially and temporally localized heat transfer.
 
-The computational domain with the initial conditions for the phase fractions is shown in figure \ref{fig:lpbf-initial}. We create the packing of the metallic powder particles using a rain drop model implemented in the open source Discrete Element Method software Yade.
+The computational domain with the initial conditions for the phase fractions is shown in figure \ref{fig:lpbf-initial}. We create the packing of the metallic powder particles using a rain drop model implemented in the open source Discrete Element Method software Yade \cite{vaclavsmilauerYadeDocumentation2021}.
 
 \begin{figure}[!tbp]
   \centering
