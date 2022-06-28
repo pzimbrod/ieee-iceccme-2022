@@ -191,10 +191,24 @@ We initialize the droplet in the center of a rectangular domain of length $4a \t
 
 We discretize the domain using a coarse grid of 64 x 64 quadrilaterals. The spatial discretization of the divergence is done using a mixture of first order bounded Gaussian schemes and third order WENO schemes.
 
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{Figs/2D_Benchmark.eps}
+  \caption{Flow field around the droplet at final time $t = \SI{0.12}{\second}$. The resulting velocity vector field (arrows) and temperature field are shown on the left slice of the domain. The right side shows the phase fraction of the droplet as well as the spatial discretisation.}
+  \label{fig:2d-benchmark}
+\end{figure}
+
 
 \subsection{Powderbed-scale physics during selective laser melting}
 
 We now turn to a more complex and relevant simulation setup that appears regularly in additive manufacturing. We aim to investigate the melting, solidification and evaporation behavior of molten metal during the Laser Powder Bed Fusion Process (PBF-LB/M).
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{Figs/LPBF_Benchmark.eps}
+  \caption{Temperature field of the investigated Laser Powder Bed Fusion process. The velocity field of the melt pool is indicated by arrows. Additionally, the discretised powder bed is shown along with the computational grid.}
+  \label{fig:lpbf-benchmark}
+\end{figure}
 
 \section{Summary}
 
