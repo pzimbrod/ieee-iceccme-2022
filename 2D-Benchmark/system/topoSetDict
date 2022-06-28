@@ -16,7 +16,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 a 1.44e-3;
-radius #calc "$a/2";
+radius $a;
 depth2D 1e-4;
 r_inner #calc "$radius * 0.9";
 r_outer #calc "$radius * 1.2";
