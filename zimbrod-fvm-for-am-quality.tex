@@ -126,13 +126,6 @@ The interface unit normal vector $n_i$ can be computed in a similar manner by us
 To perform the finite volume simulations, the Open Source C++ Library OpenFOAM is used in Version 2106. In order to accommodate the extended surface stress formulation, some of the existing solver capabilities need to be modified. The changes necessary are elaborated on in more detail in the following chapter.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Methods}
-
-First, we examine a well-known setup proposed by Ma et al. that models the flow around a stationary bubble subject to a temperature gradient \cite{maDirectNumericalSimulation2011}. We aim to accurately predict the velocity field that arises due to marangoni convection at the interface.
-
-We then proceed to investigate the mesoscopic nanosecond dynamics during selective laser melting of steel, a common problem within additive manufacturing. Here, we show that our implementation is able to handle geometrically and physically complex simulations in 3D.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
 \subsection{Implementation}
@@ -158,6 +151,13 @@ In a pursuit to keep model evaluation simple and not rely on Molecular Dynamics 
 Here, $\sigma_{1,2}$ denotes the interfacial tension, $\sigma_1$ and $\sigma_2$ are the surface tensions of the involved species and $C$ is a constant which we assume to be unity as a reasonable approximation \cite{marmurCorrelatingInterfacialTensions2010}.
 
 In order to approximate the differential terms in the governing equations efficiently, we use high order weighted essentially non-oscillatory (WENO) schemes that have been developed separately for OpenFOAM by Gärtner et al. \cite{gartnerEfficientWENOLibrary2020,martinImplementationValidationSemiImplicit2018}.
+
+\subsection{Numerical experiments}
+
+First, we examine a well-known setup proposed by Ma et al. that models the flow around a stationary bubble subject to a temperature gradient \cite{maDirectNumericalSimulation2011}. We aim to accurately predict the velocity field that arises due to marangoni convection at the interface.
+
+We then proceed to investigate the mesoscopic nanosecond dynamics during selective laser melting of steel, a common problem within additive manufacturing. Here, we show that our implementation is able to handle geometrically and physically complex simulations in 3D.
+
 
 \subsection{Oscillating Droplet in a Temperature Gradient}
 
