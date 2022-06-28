@@ -24,6 +24,7 @@
 \usepackage{orcidlink}
 \usepackage{siunitx}
 \usepackage{textcomp}
+\usepackage{booktabs}
 \usepackage{xcolor}
 \usepackage{hyperref}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -159,9 +160,37 @@ First, we examine a well-known setup proposed by Ma et al. that models the flow 
 We then proceed to investigate the mesoscopic nanosecond dynamics during selective laser melting of steel, a common problem within additive manufacturing. Here, we show that our implementation is able to handle geometrically and physically complex simulations in 3D.
 
 
-\subsection{Oscillating Droplet in a Temperature Gradient}
+\subsection{Marangoni Flow around a droplet}
 
 We now investigate a simple, two-dimensional benchmark case that illustrates the ability to capture Marangoni effects for the present work.
+
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Material properties of the oscillating droplet case}
+\label{tab:droplet-parameters}
+\centering
+\begin{tabular}{cc}
+\toprule
+Symbol & Value [Unit]\\
+\midrule
+
+  $\rho_{1}$ & \SI{250}{\kilo\gram \per \metre\cubed} \\
+  $\rho_{2}$ &  $2 \rho_{1}$ \\
+  $c_{p,1}$ & \SI{5e-5}{\joule \per \kilo\gram \per \kelvin} \\
+  $c_{p,2}$ & $2 c_{p,1}$ \\
+  $\mu_{1}$ & \SI{0.012}{\kilo\gram \per \metre \per \second} \\
+  $\mu_{2}$ & $2 \mu_{1}$ \\ 
+  $\lambda_{1}$ & \SI{1.2e-6}{\watt \per \metre \per \kelvin} \\
+  $\lambda_{2}$ & $2 \lambda_{1}$ \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+We initialize the droplet in the center of a rectangular domain of length $4a \times 4a$ where $a = \SI{1.44e-3}{\metre}$ with a radius of $a$. The droplet is subject to a temperature gradient of \SI{200}{\kelvin \per \metre} where the bottom temperature is fixed to \SI{290}{\kelvin}.
+
+We discretize the domain using a coarse grid of 64 x 64 quadrilaterals. The spatial discretization of the divergence is done using a mixture of first order bounded Gaussian schemes and third order WENO schemes.
+
 
 \subsection{Powderbed-scale physics during selective laser melting}
 
