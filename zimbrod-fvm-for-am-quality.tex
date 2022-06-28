@@ -102,7 +102,8 @@ The resulting force accounting for all surface tension effects can now be expres
 One can show that Eq. \ref{eq:stress-tensor} can be re-arranged using some tensor algebra and geometric identities into a much shorter and more useful form. The derivation is given in more detail by Lafaurie et al. \cite{lafaurieModellingMergingFragmentation1994}. By performing those rearrangements, we can recover a form that separates the normal from the tangential components of the divergence vector:
 
 \begin{equation}
-    \frac{\partial T_{ij}}{\partial x_j} = \frac{\partial \sigma}{\partial x_i} [\delta_s(\delta_{ij} - n_i n_j)] - \sigma \kappa n_i \delta_s
+\label{eq:divergence-capillarystress}
+    \frac{\partial T_{ij}}{\partial x_j} = \frac{\partial \sigma}{\partial x_i} [\delta_s(\delta_{ij} - n_i n_j)] - \sigma \kappa n_i \delta_s 
 \end{equation}
 
 Here, the interface curvature $\kappa$ is introduced. The second term of the right hand side corresponds to the normal capillary force directed in the normal direction of the interface, effecting a contractional movement of the interface. The first term resembles the marangoni-type forces present. By taking the derivative of the surface tension coefficient, this term does not vanish iff there are gradients present at the interface. This is normally the case when there are multiple species involved or temperature gradients present \cite{j.straubThermokapillareGrenzflachenkonvektionGasblasen1990}. Note that we then simply evaluate the ordinary form of surface tension without any additional physics present. However, as the surface tension coefficient is otherwise not a direct local variable, one must further differentiate the term:
@@ -141,7 +142,7 @@ A very useful property of this approach is that not only thermally driven surfac
 
 To account for thermal and solute-driven effects simultaneously, we need to incorporate the temperature dependence of the surface tension as well as interfacial tension between the alloying elements in the liquid state. This allows us to capture not only flow patterns on the liquid-gas interface, but also between liquid interfaces of dissimilar species. We may find accurate values for temperature dependent surface tension in the literature. However, determining interfacial tension poses a non-trivial problem that has been discussed in the literature \cite{marmurCorrelatingInterfacialTensions2010}.
 
-Naturally, the occurence of interfaces between dissimilar metals is nothing unique to the setting of in-situ alloying. This effect should be observable in pre-alloyed powders as well and hence also play a role in Powder Bed Fusion processes in general. However, the mixing paths in this case will be in the range of less than the typical powder diameter and thus in the order of \SI[per-mode=fraction]{1e0}{\micro\metre} to \SI[per-mode=fraction]{10}{\micro\metre}. In-situ alloying however leads to a distribution of alloying species much further apart from each other, i.e. about 10x in comparison. This consequently increases the time the flow takes to homogeneize the melt notably and thus should not be considered instantaneous and hence neglected anymore.
+Naturally, the occurence of interfaces between dissimilar materials is not unique to the setting of in-situ alloying. Mixing of different species is an effect that is oftentimes observed in microfluidic applications as well.
 
 In a pursuit to keep model evaluation simple and not rely on Molecular Dynamics calculations, we use the following, relatively simple approximation for interfacial tension given by Girifalco and Good \cite{girifalcoTheoryEstimationSurface1957}:
 
@@ -164,24 +165,27 @@ We then proceed to investigate the mesoscopic nanosecond dynamics during selecti
 
 We now investigate a simple, two-dimensional benchmark case that illustrates the ability to capture Marangoni effects for the present work.
 
+An overview of the material parameters is given in table \ref{tab:droplet-parameters}.
+
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
-\caption{Material properties of the oscillating droplet case}
+\caption{Material properties of the oscillating droplet case. The indices indicate that corresponding phase.}
 \label{tab:droplet-parameters}
 \centering
-\begin{tabular}{cc}
+\begin{tabular}{ll}
 \toprule
-Symbol & Value [Unit]\\
+Quantity & Value [Unit]\\
 \midrule
-
-  $\rho_{1}$ & \SI{250}{\kilo\gram \per \metre\cubed} \\
-  $\rho_{2}$ &  $2 \rho_{1}$ \\
-  $c_{p,1}$ & \SI{5e-5}{\joule \per \kilo\gram \per \kelvin} \\
-  $c_{p,2}$ & $2 c_{p,1}$ \\
-  $\mu_{1}$ & \SI{0.012}{\kilo\gram \per \metre \per \second} \\
-  $\mu_{2}$ & $2 \mu_{1}$ \\ 
-  $\lambda_{1}$ & \SI{1.2e-6}{\watt \per \metre \per \kelvin} \\
-  $\lambda_{2}$ & $2 \lambda_{1}$ \\
+Density $\rho_{1}$ & \SI{250}{\kilo\gram \per \metre\cubed} \\
+Density $\rho_{2}$ &  $2 \rho_{1}$ \\
+Heat capacity $c_{p,1}$ & \SI{5e-5}{\joule \per \kilo\gram \per \kelvin} \\
+Heat capacity $c_{p,2}$ & $2 c_{p,1}$ \\
+Viscosity $\mu_{1}$ & \SI{0.012}{\kilo\gram \per \metre \per \second} \\
+Viscosity $\mu_{2}$ & $2 \mu_{1}$ \\ 
+Thermal conductivity $\lambda_{1}$ & \SI{1.2e-6}{\watt \per \metre \per \kelvin} \\
+Thermal conductivity $\lambda_{2}$ & $2 \lambda_{1}$ \\
+Surface tension coefficient $\sigma$ & \SI{0.1}{\newton \per \metre} \\
+Marangoni coefficient $\sigma_{T}$ & \SI{0.02}{\newton \per \metre \per \kelvin} \\
 
 \bottomrule
 \end{tabular}
@@ -190,18 +194,76 @@ Symbol & Value [Unit]\\
 We initialize the droplet in the center of a rectangular domain of length $4a \times 4a$ where $a = \SI{1.44e-3}{\metre}$ with a radius of $a$. The droplet is subject to a temperature gradient of \SI{200}{\kelvin \per \metre} where the bottom temperature is fixed to \SI{290}{\kelvin}.
 
 We discretize the domain using a coarse grid of 64 x 64 quadrilaterals. The spatial discretization of the divergence is done using a mixture of first order bounded Gaussian schemes and third order WENO schemes.
+We impose no-slip boundary conditions at the walls as well as Neumann type boundaries for the temperature at the left and right walls. The temperature gradient is enforced during the entire simulation using Dirichlet boundaries at the bottom and top. We simulate the evolution of the involved fields up to $t = \SI{0.12}{\second}$.
 
-\begin{figure}[!t]
+The remainder of the involved numerics and parameters, as well as all boundary conditions can be accessed via the online repository given in section \ref{sec:data}.
+
+The resulting fields at the final time step $t = \SI{0.12}{\second}$ is shown in figure \ref{fig:2d-benchmark}. We can clearly observe the field of vortices that forms around the bubble, initiated from varying pressures along the interface. This is due to the Marangoni effect, resulting in an uneven pressure distribution in the domain. Following equation \ref{eq:divergence-capillarystress}, the first term involving the gradient of the surfact tension coefficient - i.e. the marangoni coefficient times the gradient of the temperature field - does not vanish here and hence induces a non homogeneous pressure contribution.
+
+\begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth]{Figs/2D_Benchmark.eps}
   \caption{Flow field around the droplet at final time $t = \SI{0.12}{\second}$. The resulting velocity vector field (arrows) and temperature field are shown on the left slice of the domain. The right side shows the phase fraction of the droplet as well as the spatial discretisation.}
   \label{fig:2d-benchmark}
 \end{figure}
 
+Despite the comparatively low mesh resolution, the phase boundary is conserved reasonably well after solving for 6000 time steps. A comparison of the sharp interface between the two phases at the beginning and end of the simulation is given in figure \ref{fig:alpha-comparison}. During the solution process, only minimal numerical diffusion of the interface occurs, indicated by the slightly tapered off edges of the rectangular profile at end time. In addition, we don't observe any oscillatory behaviour in the fields which is essential for obtaining a stable solution.
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth]{Figs/alpha_comparison.eps}
+  \caption{Phase fraction profiles of the droplet at beginning and end of the investigated temporal domain. This cross-section represents a diagonal slice from the left top to the right bottom of the grid shown in figure \ref{fig:2d-benchmark}.}
+  \label{fig:alpha-comparison}
+\end{figure}
 
 \subsection{Powderbed-scale physics during selective laser melting}
 
 We now turn to a more complex and relevant simulation setup that appears regularly in additive manufacturing. We aim to investigate the melting, solidification and evaporation behavior of molten metal during the Laser Powder Bed Fusion Process (PBF-LB/M).
+
+This case shall serve as a showcase of a physically complex problem that involves phase changes, simultaneous handling of solid, liquid and gaseous phases (and hence strong pressure gradients) as well as spatially and temporally localized heat transfer.
+
+The computational domain with the initial conditions for the phase fractions is shown in figure \ref{fig:lpbf-initial}. We create the packing of the metallic powder particles using a rain drop model implemented in the open source Discrete Element Method software Yade.
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth]{Figs/powderbed.png}
+  \caption{Composition of the computational domain at the initial time step. Solidified build platform (red), discretised powder bed in solid state (green) and gaseous argon atmosphere (blue).}
+  \label{fig:lpbf-initial}
+\end{figure}
+
+
+The physical parameters of the PBF-LB/M model are given in table \ref{tab:lpbf-parameters}. The numerical parameters of the model are given in the case files referenced in section \ref{sec:data}.
+
+\begin{table}[!tbp]
+\renewcommand{\arraystretch}{1.3}
+\caption{Simulation properties of the Laser Powder Bed Fusion test case. The subscripts l, s and g signify the liquid, solid and gaseous phases involved in the model. \cite{valenciaThermophysicalProperties2008,brooksSurfaceTensionSteels2005}}
+\label{tab:lpbf-parameters}
+\centering
+\begin{tabular}{ll}
+\toprule
+Symbol & Value [Unit]\\
+\midrule
+
+  Laser Power & \SI{300}{\watt} \\
+  Laser scan speed & \SI{0.9}{\metre \per \second} \\
+  Density $\rho_{s}$ & \SI{7950}{\kilo\gram \per \metre\cubed} \\
+  Heat capacity $c_{p,s}$ & \SI{412}{\joule \per \kilo\gram \per \kelvin} \\
+  Thermal conductivity $\lambda_{s}$ & \SI{1.2e-6}{\watt \per \metre \per \kelvin} \\
+  Enthalpy of fusion $H_{f}$ & \SI{2.6e5}{\joule \per \kilo\gram} \\
+  Density $\rho_{l}$ & \SI{6881}{\kilo\gram \per \metre\cubed} \\
+  Heat capacity $c_{p,l}$ & \SI{790}{\joule \per \kilo\gram \per \kelvin} \\
+  Viscosity $\mu_{l}$ & \SI{5.85e-3}{\kilo\gram \per \metre \per \second\squared} \\
+  Thermal conductivity $\lambda_{l}$ & \SI{6.6}{\watt \per \metre \per \kelvin} \\
+  Heat capacity $c_{p,g}$ & \SI{1900}{\joule \per \kilo\gram \per \kelvin} \\
+  Viscosity $\mu_{g}$ & \SI{1.8e-5}{\kilo\gram \per \metre \per \second\squared} \\
+  Thermal conductivity $\lambda_{g}$ & \SI{6.6}{\watt \per \metre \per \kelvin} \\
+Surface tension coefficient $\sigma$ & \SI{1.908}{\newton \per \metre} \\
+Marangoni coefficient $\sigma_{T}$ & \SI{-1.622e-5}{\newton \per \metre \per \kelvin} \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
 
 \begin{figure}[!t]
   \centering
@@ -212,9 +274,11 @@ We now turn to a more complex and relevant simulation setup that appears regular
 
 \section{Summary}
 
-We expect that the results of this work will help to improve understanding of the complex physics in metal-additive manufacturing substantially. Furthermore, the high fidelity data that can be generated using the proposed solver can be used in order to train physics informed machine learning models. It has previously been shown that such models can speed up simulations by order of magnitudes by execution of a simple forward pass. However, accurate and rich training data are needed in order to train such models. We anticipate that this work can help supply this data and further enhance the field of modelling for complex manufacturing processes.
+In this work, we proposed a numerical solver based on the Finite Volume method that is able to incorporate various physics that are relevant for modelling non-isothermal surface flows of arbitrary many phases. We demonstrated the capabilities of the framework using one simple, two-dimensional case showing the effects of marangoni convection and subsequently with a considerably more complex and application-driven process modelling a scenario common in additive manufacturing.
 
-\section{Data Availability}
+We expect that the results of this work will help to improve understanding of the complex physics in metal-additive manufacturing substantially. Furthermore, the high fidelity data that can be generated using the proposed solver can be used in order to train physics informed machine learning models \cite{karniadakisPhysicsinformedMachineLearning2021}. It has previously been shown that such models can speed up simulations by order of magnitudes by execution of a simple forward pass. However, accurate and rich training data are needed in order to train such models \cite{liFourierNeuralOperator2021,luDeepONetLearningNonlinear2020}. We anticipate that this work can help supply this data and further enhance the field of modelling for complex manufacturing processes.
+
+\section{Data Availability}\label{sec:data}
 
 The presented solver is available via Github at \href{https://github.com/pzimbrod/thermocapillaryInterFoam}{pzimbrod/thermocapillaryInterFoam}. All data used in this article can be accessed at \href{https://github.com/pzimbrod/ieee-iceccme-2022}{pzimbrod/ieee-iceccme-2022}.
 
