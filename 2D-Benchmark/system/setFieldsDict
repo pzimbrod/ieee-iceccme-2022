@@ -15,7 +15,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 a 1.44e-3;
-radius #calc "$a/2";
+radius $a;
 depth2D 1e-4;
 
 defaultFieldValues
