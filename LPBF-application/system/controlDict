@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     lpbfFoam;
+application     thermocapillaryInterFoam;
 //application     icoReactingMultiphaseInterFoam;
 
 startFrom       latestTime;

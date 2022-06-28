@@ -35,6 +35,8 @@ divSchemes
     "div\(Yiphir,alpha.*\)" Gauss linear;
     "div\(phi,.*\.gas.*\)"  Gauss vanLeer;
 
+    "div\(.*1.*\)"          Gauss linear;
+
     div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
 
     div(phi,T)              Gauss linearUpwind grad(T);

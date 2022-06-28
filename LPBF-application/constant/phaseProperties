@@ -46,13 +46,24 @@ surfaceTension
                 ( -16.216e-6 1)
             );
             // - fitted so that sigma(T=1700) = 1.88
+	    dSigmadT       -16.216e-6;
         }
     }
 
     (gas and solid)
     {
-        type            constant;
-        sigma           0;
+        type            temperatureDependent;
+        sigma
+        {
+            type            temperatureDependent;
+            sigma           polynomial
+            (
+                ( 0.0 0)
+                ( 0.0 1)
+            );
+            // - fitted so that sigma(T=1700) = 1.88
+	    dSigmadT       0.0;
+        }
     }
     
     (liquid and solid) // 10.1007/s10853-005-1939-2
@@ -67,6 +78,7 @@ surfaceTension
                 ( -16.216e-6 1)
             );
             // - fitted so that sigma(T=1700) = 1.88
+	    dSigmadT       -16.216e-6;
         }
     }
 );
