@@ -44,7 +44,7 @@
     
 \begin{document}
 \title{\vspace*{1cm} %Efficient simulation of surface tension effects in using an h-adaptive Finite Volume Method \\
-An efficient, high-order, adaptive Finite Volume solver for modelling fluid behavior in advanced manufacturing processes\\
+An efficient, high-order, adaptive Finite Volume solver for modelling capillary effects in advanced manufacturing processes\\
 }
 
 \author{\IEEEauthorblockN{Patrick Zimbrod\orcidlink{0000-0003-3108-3171}}
@@ -79,14 +79,37 @@ This can mostly be attributed to the fact that an increased understanding of the
 Two such examples that shall serve as a guideline for this work are microfluidic applications and additive manufacturing of metals.
 Both groups of processes are characterized by complex flow phenomena that involve several physical phenomena on a microscopic scale \cite{sackmannPresentFutureRole,debroyAdditiveManufacturingMetallic2018}. The fact that those effects tend to have fast dynamics further complicates the analysis \cite{khairallahControllingInterdependentMesonanosecond2020}. This leads to an increased amount of empirical effort necessary to capture and quantify the flow patterns involved.
 
-Hence, simulation has gained considerable traction as an alternative to extensive experimental research. Within computational simulation frameworks, the involved physics can be precisely monitored, even to a nanoseconds scale, which would oftentimes be probhibitively expensive. At the same time, a considerable drawback of this approach is the additional amount of work that has to be put into the mathematical modelling of the involved physics. Especially within fluid dynamics, gaining a stable as well as accurate solution can oftentimes be challenging, as the resulting set of partial differential equations can have a small stability region in the temporal domain.
+Hence, simulation has gained considerable traction as an alternative to extensive experimental research. Within computational simulation frameworks, the involved physics can be precisely monitored, even to a nanoseconds scale, which would oftentimes be probhibitively expensive. At the same time, a considerable drawback of this approach is the additional amount of work that has to be put into the mathematical modelling of the involved physics. Especially within fluid dynamics, gaining a stable as well as accurate solution can oftentimes be challenging, as the resulting set of partial differential equations can have a small stability region in the temporal domain \cite{laxStabilityDifferenceSchemes2013}.
 
-Therefore in this work, we propose and demonstrate a performant, free and open source software framework based on the Finite Volume method that is able to capture complex, non-isothermal surface flows. We discuss the necessary mathematical modelling and briefly address
+Therefore in this work, we propose and demonstrate a performant, free and open source software framework based on the Finite Volume method that is able to capture complex, non-isothermal surface flows. We discuss the necessary mathematical modelling in order to extend the existing solver ecosystem towards incorporating non-isothermal surface tension driven flows. We showcase the capabilities of the developed application using two example cases with different geometric and physical complexity.
+
+\section{Related works}
+
+Modelling field-dependent capillary convection, also known as Marangoni convection, in itself is not a new field of research.
+Various works exist that address the need to develop robust numerical methods in order to resolve the complex flow patterns that arise. Those are mostly driven by application, i.e. they are tailored towards simulating a particular set of physics.
+
+Early works include the investigation of marangoni effects in microgravity \cite{chunExperimentsTransitionSteady1979,chunMicrogravitySimulationMarangoni1978}, buoyancy-driven flows \cite{villersCoupledBuoyancyMarangoni1992} and weldinng \cite{limmaneevichitrExperimentsSimulateEffect2000,limmaneevichitrVisualizationMarangoniConvection2000}.
+
+After that, the role of Marangoni convection in the microfluidic regime has gained considerable traction within the last ten years \cite{karbalaeiThermocapillarityMicrofluidicsReview2016}. Numerous scenarios have been investigated since including engineering of traps and pumps, stability in microchannels and particle accumulation in microfluidic flows \cite{panInstabilityMarangoniToroidal2011,basuVirtualMicrofluidicTraps2008,orlishausenParticleAccumulationDepletion2017}.
+
+Another field where the effects of capillary convection have received considerable attention is within metal additive manufacturing. Here, the focus lays on resolving temperature-dependent surface tension flows, as melt pools exhibit large spatial and temporal temperature gradients \cite{debroyAdditiveManufacturingMetallic2018}. Various methods have been employed to resolve the thermo-fluid dynamics on the powder scale including Arbitrary Lagrangian Eulerian \cite{khairallahMesoscopicSimulationModel2014,martinDynamicsPoreFormation2019}, Finite Difference \cite{gusarovModelRadiationHeat2009}, Finite Element \cite{zhangMultiscaleMultiphysicsModeling2018,caoNovelHighefficientFinite2021}, Lattice Boltzmann \cite{krzyzanowskiMultiphysicsSimulationApproach2021}, Smoothed Particle Hydrodynamics \cite{wimmerExperimentalNumericalInvestigations2021} and the Finite Volume Method which shall be used for this work as well \cite{leeMesoscopicSimulationHeat2015,gurtlerSimulationLaserBeam2013,ottoMultiphysicalSimulationLaser2012}.
+
+However, the mentioned works exhibit some shortcomings when compared to the general current state of numerical modelling. Especially in applications where highly dynamic physics are strongly localized in the computational domain, adaptively refining the domain is a very desirable property that is not widely employed yet. Furthermore, the use of high order spatial approximations remains largely restricted to few numerical schemes of Galerkin type. However, achieving high order accuracy can help alleviate the need for overly fine computational meshes and hence is also desirable. Last, few of the presented solution along with their source codes are freely available. To the authors' best knowledge, none of the current works on the presented topic incorporate all three properties. Thus, we present a framework that allows for grid adaptivity, high order schemes and is openly available (see section \ref{sec:data} for references).
 
 \section{Theory}
 
+From here on, we assume a system of partial differential equations that involves the transient evolution of multiple fluid phases in a joint domain. This means we are tasked to solve at least the Navier-Stokes equations:
+
+\begin{align}
+  \rho \frac{\partial  u_{i}}{\partial t} + \rho \frac{\partial u_{i}}{\partial x_{i}} = 0
+\end{align}
+
+Where in this case we have assumed incompressibility since we only intend to model flows that are well within the subsonic regime.
+
+To describe the necessary linear algebra, we will use the index notation of tensors in a cartesian coordinate system alongside with the Einstein summation convention where the sum over matching indices is implied.
+
 The theory of the proposed implementation relies on the Continuum Surface Stress Method initially presented by Lafaurie et al., extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{lafaurieModellingMergingFragmentation1994,brackbillContinuumMethodModeling1992}.
-To describe the necessary linear algebra, we will use the index notation of tensors in a cartesian coordinate system alongside with the Einstein summation convention where the sum over matching indices is implied. First, the capillary stress tensor is introduced:
+ First, the capillary stress tensor is introduced:
 
 \begin{equation}
     T_{ij} = - \sigma \delta_s (\delta_{ij} - n_i n_j)
@@ -161,7 +184,7 @@ First, we examine a well-known setup proposed by Ma et al. that models the flow 
 We then proceed to investigate the mesoscopic nanosecond dynamics during selective laser melting of steel, a common problem within additive manufacturing. Here, we show that our implementation is able to handle geometrically and physically complex simulations in 3D.
 
 
-\subsection{Marangoni Flow around a droplet}
+\subsection{Marangoni Flow around a droplet}\label{sec:droplet}
 
 We now investigate a simple, two-dimensional benchmark case that illustrates the ability to capture Marangoni effects for the present work.
 
@@ -216,7 +239,7 @@ Despite the comparatively low mesh resolution, the phase boundary is conserved r
   \label{fig:alpha-comparison}
 \end{figure}
 
-\subsection{Powderbed-scale physics during selective laser melting}
+\subsection{Powderbed-scale physics during selective laser melting}\label{sec:lpbf}
 
 We now turn to a more complex and relevant simulation setup that appears regularly in additive manufacturing. We aim to investigate the melting, solidification and evaporation behavior of molten metal during the Laser Powder Bed Fusion Process (PBF-LB/M).
 
@@ -272,15 +295,17 @@ Marangoni coefficient $\sigma_{T}$ & \SI{-1.622e-5}{\newton \per \metre \per \ke
   \label{fig:lpbf-benchmark}
 \end{figure}
 
-\section{Summary}
+\section{Summary and Future Work}
 
 In this work, we proposed a numerical solver based on the Finite Volume method that is able to incorporate various physics that are relevant for modelling non-isothermal surface flows of arbitrary many phases. We demonstrated the capabilities of the framework using one simple, two-dimensional case showing the effects of marangoni convection and subsequently with a considerably more complex and application-driven process modelling a scenario common in additive manufacturing.
 
 We expect that the results of this work will help to improve understanding of the complex physics in metal-additive manufacturing substantially. Furthermore, the high fidelity data that can be generated using the proposed solver can be used in order to train physics informed machine learning models \cite{karniadakisPhysicsinformedMachineLearning2021}. It has previously been shown that such models can speed up simulations by order of magnitudes by execution of a simple forward pass. However, accurate and rich training data are needed in order to train such models \cite{liFourierNeuralOperator2021,luDeepONetLearningNonlinear2020}. We anticipate that this work can help supply this data and further enhance the field of modelling for complex manufacturing processes.
 
+Further means of extending the proposed framework include the incorporation of ray tracing algorithms in order to accurately predict heat source dynamics, further tweaking of the underlying volume of fluid formulation for robustness and accuracy and improving parallel solving capabilities on specialized hardware, such as General Purpose GPU architectures (GPGPU).
+
 \section{Data Availability}\label{sec:data}
 
-The presented solver is available via Github at \href{https://github.com/pzimbrod/thermocapillaryInterFoam}{pzimbrod/thermocapillaryInterFoam}. All data used in this article can be accessed at \href{https://github.com/pzimbrod/ieee-iceccme-2022}{pzimbrod/ieee-iceccme-2022}.
+The presented solver is available via Github at \href{https://github.com/pzimbrod/thermocapillaryInterFoam}{pzimbrod/thermocapillaryInterFoam}. All data used in this article along with the case files discussed in sections \ref{sec:droplet} and \ref{sec:lpbf} can be accessed at \href{https://github.com/pzimbrod/ieee-iceccme-2022}{pzimbrod/ieee-iceccme-2022}.
 
 \bibliographystyle{ieeetr}
 \bibliography{mybibfile}
