@@ -78,9 +78,9 @@ Accurate modelling of complex physics has received considerable attention within
 This can mostly be attributed to the fact that an increased understanding of the phenomena relevant for manufacturing directly leads to more finely tuned or even new processes that tend to increase output quality.
 
 Two such examples that shall serve as a guideline for this work are microfluidic applications and additive manufacturing of metals.
-Both groups of processes are characterized by complex flow phenomena that involve several physical phenomena on a microscopic scale \cite{sackmannPresentFutureRole,debroyAdditiveManufacturingMetallic2018}. The fact that those effects tend to have fast dynamics further complicates the analysis \cite{khairallahControllingInterdependentMesonanosecond2020}. This leads to an increased amount of empirical effort necessary to capture and quantify the flow patterns involved.
+Both groups of processes are characterized by complex flow phenomena that involve several physical phenomena on a microscopic scale \cite{sackmannPresentFutureRole2014,debroyAdditiveManufacturingMetallic2018}. The fact that those effects tend to have fast dynamics further complicates the analysis \cite{khairallahControllingInterdependentMesonanosecond2020}. This leads to an increased amount of empirical effort necessary to capture and quantify the flow patterns involved.
 
-Hence, simulation has become an important alternative to extensive experimental research. Within computational simulation frameworks, the involved physics can be precisely monitored, even to a nanoseconds scale, which would oftentimes be probhibitively expensive to do experimentally. At the same time, a considerable drawback of this approach is the additional amount of work that has to be put into the mathematical modelling of the involved physics. Especially within fluid dynamics, gaining a stable as well as accurate solution can oftentimes be challenging, as the resulting set of partial differential equations can have a small stability region in the temporal domain \cite{laxStabilityDifferenceSchemes2013}.
+Hence, simulation has become an important alternative to extensive experimental research. Within computational simulation frameworks, the involved physics can be precisely monitored, even down to a nanoseconds scale, which would oftentimes be probhibitively expensive to do experimentally. At the same time, a considerable drawback of this approach is the additional amount of work that has to be put into the mathematical modelling of the involved physics. Especially within fluid dynamics, gaining a stable as well as accurate solution can oftentimes be challenging, as the resulting set of partial differential equations can have a small stability region in the temporal domain \cite{laxStabilityDifferenceSchemes2013}.
 
 Therefore in this work, we propose and demonstrate a performant, free and open source software framework based on the Finite Volume method that is able to capture complex, non-isothermal surface flows. We discuss the necessary mathematical modelling in order to extend the existing solver ecosystem towards incorporating non-isothermal surface tension driven flows. We showcase the capabilities of the developed application using two example cases with different geometric and physical complexity.
 
@@ -120,7 +120,7 @@ After that, we can consider the effects happening at the interface of such phase
   \label{fig:surface-tension}
 \end{figure}
 
-The theory of the proposed implementation of those surface tension effects relies on the Continuum Surface Stress Method initially presented by Lafaurie et al., extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{lafaurieModellingMergingFragmentation1994,brackbillContinuumMethodModeling1992}.
+The theory of the proposed implementation of those surface tension effects relies on the Continuum Surface Stress Method initially presented by Lafaurie et al. \cite{lafaurieModellingMergingFragmentation1994}, extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{brackbillContinuumMethodModeling1992}.
  First, the capillary stress tensor is introduced:
 
 \begin{equation}
@@ -160,17 +160,15 @@ The interface unit normal vector $n_i$ can be computed in a similar manner by us
     n_i = \frac{1}{\delta_s} \frac{\partial \alpha}{\partial x_i}
 \end{equation}
 
-To perform the finite volume simulations, the Open Source C++ Library OpenFOAM is used in Version 2106. In order to accommodate the extended surface stress formulation, some of the existing solver capabilities need to be modified. The changes necessary are elaborated on in more detail in the following chapter.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Implementation}
 
-This foundation is modified and implemented based on the open source library OpenFOAM based on version 2106, which is a popular software library that implements the Finite Volume Method \cite{jasakOpenFOAMLibraryComplex2007}. The modifications rely on the works of Gueyffier et al. in order to account for the additional Marangoni stresses \cite{gueyffierVolumeofFluidInterfaceTracking1999}.
+The presented theoretical foundation is modified and implemented based on the open source library \textit{OpenFOAM}, which is a popular software library that implements the Finite Volume Method \cite{jasakOpenFOAMLibraryComplex2007}. The modifications rely on the works of Gueyffier et al. in order to account for the additional Marangoni stresses \cite{gueyffierVolumeofFluidInterfaceTracking1999}.
 
 The proposed code computes the divergence of the capillary stress tensor for finite volume cell centers. However, to handle source terms within the PIMPLE loop, it is necessary to also supply the surface tension force as a scalar interpolated to the cell face. Therefore, an additional method is implemented that computes the $L_2$ norm of the surface tension force vector and interpolates the scalar value via finite differencing.
 
-A very useful property of this approach is that not only thermally driven surface tension effects can be incorporated, but also gradients arising from any kind of inhomogeneity. This means that among others solute-driven effects can also be modelled. This scenario is common in manufacturing processes involving mixing of multiple solvents. Within the context of additive manufacturing, in-situ alloying is a scenario where such effects are not negligible \cite{katz-demyanetzInsituAlloyingNovel2020}.
+A very useful property of this approach is that not only thermally driven surface tension effects can be incorporated, but also gradients arising from any kind of inhomogeneity. This means that, among others, solute-driven effects can also be modelled. This scenario is common in manufacturing processes involving mixing of multiple solvents. Within the context of additive manufacturing, in-situ alloying is a scenario where such effects are not negligible \cite{katz-demyanetzInsituAlloyingNovel2020}.
 
 To account for thermal and solute-driven effects simultaneously, we need to incorporate the temperature dependence of the surface tension as well as interfacial tension between the involved phases. This allows us to capture not only flow patterns on liquid-gas interfaces, but also between liquid interfaces of dissimilar species. We may find accurate values for temperature dependent surface tension in the literature. However, determining interfacial tension poses a non-trivial problem that has been discussed in the literature \cite{marmurCorrelatingInterfacialTensions2010}.
 
@@ -180,7 +178,7 @@ In a pursuit to keep model evaluation simple and not rely on Molecular Dynamics 
     \sigma_{1,2} = \sigma_1 + \sigma_1 + 2C (\sigma_1 \sigma_2)^{1/2}
 \end{equation}
 
-Here, $\sigma_{1,2}$ denotes the interfacial tension, $\sigma_1$ and $\sigma_2$ are the surface tensions of the involved species and $C$ is a constant which we assume to be unity as a reasonable approximation \cite{marmurCorrelatingInterfacialTensions2010}.
+Here, $\sigma_{1,2}$ denotes the interfacial tension, $\sigma_1$ and $\sigma_2$ are the surface tensions of the involved species and $C$ is a constant which we assume to be one as a reasonable approximation \cite{marmurCorrelatingInterfacialTensions2010}.
 
 In order to approximate the differential terms in the governing equations efficiently, we use high order weighted essentially non-oscillatory (WENO) schemes that have been developed separately for OpenFOAM by Gärtner et al. \cite{gartnerEfficientWENOLibrary2020,martinImplementationValidationSemiImplicit2018}. In this implementation, the numeric stencil coefficients to specified order are pre-computed and locally stored to alleviate the harsh overhead in memory requirements. The theory behind the derivation of high order WENO stencils is given in Gärtner et al. \cite{gartnerEfficientWENOLibrary2020}.
 
@@ -228,7 +226,7 @@ We impose no-slip boundary conditions at the walls as well as Neumann type bound
 
 The remainder of the involved numerics and parameters, as well as all boundary conditions can be accessed via the online repository given in section \ref{sec:data}.
 
-The resulting fields at the final time step $t = \SI{0.12}{\second}$ is shown in Fig. \ref{fig:2d-benchmark}. We can clearly observe the field of vortices that forms around the bubble, initiated from varying pressures along the interface. This is due to the Marangoni effect, resulting in an uneven pressure distribution in the domain. Following equation \ref{eq:divergence-capillarystress}, the first term involving the gradient of the surfact tension coefficient - i.e. the marangoni coefficient times the gradient of the temperature field - does not vanish here and hence induces a non homogeneous pressure contribution.
+The resulting fields at the final time step $t = \SI{0.12}{\second}$ is shown in Fig. \ref{fig:2d-benchmark}. We can clearly observe the field of vortices that forms around the bubble, initiated from varying pressures along the interface. This is due to the Marangoni effect, resulting in an uneven pressure distribution in the domain. Following equation \ref{eq:divergence-capillarystress}, the first term involving the gradient of the surface tension coefficient - i.e. the marangoni coefficient times the gradient of the temperature field - does not vanish here and hence induces a non homogeneous pressure contribution.
 
 \begin{figure}[!tbp]
   \centering
@@ -303,7 +301,7 @@ Marangoni coefficient $\sigma_{T}$ & \SI{-1.622e-5}{\newton \per \metre \per \ke
 \end{figure}
 
 In Fig. \ref{fig:lpbf-benchmark}, we can observe the complex flow field that evolves within the molten material. The melt region largely penetrates the already solidified material below the powder bed, which agrees well with experimental observations done on laser melting of 316L stainless steel \cite{mohrInSituDefectDetection2020}.
-Examining the cross-section further, we observe high flow velocities at the surface of the molten material, indicated by arrows in Fig. \ref{fig:lpbf-benchmark}. The large spatial temperature gradients present produce variations in surface tension and hence lead to Marangoni convection at the surface. This current of liquid metal helps to distribute the heat that is input by the laser over the entire melt pool.
+Examining the cross-section further, we observe high flow velocities at the surface of the molten material, indicated by arrows in Fig. \ref{fig:lpbf-benchmark}. The large spatial temperature gradients produce variations in surface tension and hence lead to Marangoni convection at the surface. This current of liquid metal helps to distribute the heat that is input by the laser over the entire melt pool.
 Furthermore, we can examine a small eddy forming within the melt pool, indicated by the circularly arranged arrows in Fig. \ref{fig:lpbf-benchmark}. This is also to be expected, albeit not due to Marangoni convection, and assists the homogenization of the temperature field within the melt pool.
 
 \section{Summary and Future Work}
