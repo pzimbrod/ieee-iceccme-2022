@@ -14,8 +14,8 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-sigma0 -0.57;    // N/m         - calculated so that sigma(T=290) = 0.01
-sigma1 0.002;   // N/(m K)
+sigma0 0.59;    // N/m         - calculated so that sigma(T=290) = 0.01
+sigma1 -0.002;   // N/(m K)
 
 type    massTransferMultiphaseSystem;
 
