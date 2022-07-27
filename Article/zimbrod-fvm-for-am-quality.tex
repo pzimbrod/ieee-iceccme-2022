@@ -184,7 +184,7 @@ In order to approximate the differential terms in the governing equations effici
 
 \section{Numerical experiments}
 
-First, we examine a well-known setup proposed by Ma et al. that models the flow around a stationary bubble subject to a temperature gradient \cite{maDirectNumericalSimulation2011}. We aim to accurately predict the velocity field that arises due to marangoni convection at the interface.
+First, we replicate and examine the numerical setup proposed by Ma et al. that models the flow around a stationary bubble subject to a temperature gradient \cite{maDirectNumericalSimulation2011}. We aim to accurately predict the velocity field that arises due to marangoni convection at the interface.
 
 We then proceed to investigate the mesoscopic nanosecond dynamics during selective laser melting of steel, a common problem within additive manufacturing. Here, we show that our implementation is able to handle geometrically and physically complex simulations in 3D.
 
@@ -221,12 +221,12 @@ Marangoni coefficient $\sigma_{T}$ & \SI{0.02}{\newton \per \metre \per \kelvin}
 
 We initialize the droplet in the center of a rectangular domain of length $4a \times 4a$ where $a = \SI{1.44e-3}{\metre}$ with a radius of $a$. The droplet is subject to a temperature gradient of \SI{200}{\kelvin \per \metre} where the bottom temperature is fixed to \SI{290}{\kelvin}.
 
-We discretize the domain using a coarse grid of 64 x 64 quadrilaterals. The spatial discretization of the divergence is done using a mixture of first order bounded Gaussian schemes and fourth order WENO schemes.
+We discretize the domain using a coarse grid of 100 x 100 quadrilaterals. The spatial discretization of the divergence is done using a mixture of first order bounded Gaussian schemes and fourth order WENO schemes.
 We impose no-slip boundary conditions at the walls as well as Neumann type boundaries for the temperature at the left and right walls. The temperature gradient is enforced during the entire simulation using Dirichlet boundaries at the bottom and top. We simulate the evolution of the involved fields up to $t = \SI{0.12}{\second}$.
 
 The remainder of the involved numerics and parameters, as well as all boundary conditions can be accessed via the online repository given in section \ref{sec:data}.
 
-The resulting fields at the final time step $t = \SI{0.12}{\second}$ is shown in Fig. \ref{fig:2d-benchmark}. We can clearly observe the field of vortices that forms around the bubble, initiated from varying pressures along the interface. This is due to the Marangoni effect, resulting in an uneven pressure distribution in the domain. Following equation \ref{eq:divergence-capillarystress}, the first term involving the gradient of the surface tension coefficient - i.e. the marangoni coefficient times the gradient of the temperature field - does not vanish here and hence induces a non homogeneous pressure contribution.
+The resulting fields at the final time step $t = \SI{0.12}{\second}$ is shown in Fig. \ref{fig:2d-benchmark}. We can clearly observe the field of vortices that form around the bubble, initiated from varying pressures along the interface. This is due to the Marangoni effect, resulting in an uneven pressure distribution in the domain. Following equation \ref{eq:divergence-capillarystress}, the first term involving the gradient of the surface tension coefficient - i.e. the marangoni coefficient times the gradient of the temperature field - does not vanish here and hence induces a non homogeneous pressure contribution.
 
 \begin{figure}[!tbp]
   \centering
