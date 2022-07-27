@@ -22,15 +22,11 @@ boundaryField
 {
     left
     {
-        //type            fixedFluxPressure;
-        //value           $internalField;
         type            symmetryPlane;
     }
 
     right
     {
-        //type            fixedFluxPressure;
-        //value           $internalField;
         type            symmetryPlane;
     }
 

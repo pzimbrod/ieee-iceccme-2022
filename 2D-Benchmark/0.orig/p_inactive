@@ -22,15 +22,11 @@ boundaryField
 {
     left
     {
-        //type            calculated;
-        //value           $internalField;
         type            symmetryPlane;
     }
 
     right
     {
-        //type            calculated;
-        //value           $internalField;
         type            symmetryPlane;
     }
 

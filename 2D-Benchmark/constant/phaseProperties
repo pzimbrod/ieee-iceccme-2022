@@ -44,7 +44,6 @@ surfaceTension
                 ( $sigma0 0)
                 ( $sigma1 1)
             );
-            dSigmadT        $sigma1;
         }
     }
 );

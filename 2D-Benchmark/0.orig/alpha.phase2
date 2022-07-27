@@ -22,13 +22,11 @@ boundaryField
 {
     left
     {
-        //type            zeroGradient;
         type            symmetryPlane;
     }
 
     right
     {
-        //type            zeroGradient;
         type            symmetryPlane;
         
     }
@@ -36,17 +34,11 @@ boundaryField
     bottom
     {
         type            zeroGradient;
-        //type            inletOutlet;
-        //inletValue      uniform 0;
-        //value           uniform 0;
     }
 
     top
     {
         type            zeroGradient;
-        //type            outletInlet;
-        //outletValue     uniform 0;
-        //value           uniform 0;
     }
 
     frontAndBack

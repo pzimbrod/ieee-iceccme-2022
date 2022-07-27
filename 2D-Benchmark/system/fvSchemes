@@ -28,27 +28,27 @@ gradSchemes
 
 divSchemes
 {
-    //div(rhoPhi,U)           Gauss WENOUpwindFit 4 1;
-    div(rhoPhi,U)           Gauss linear;
-    //"div\(phi,alpha.*\)"    Gauss WENOUpwindFit 4 1;
-    "div\(phi,alpha.*\)"    Gauss vanLeer;
+    div(rhoPhi,U)           Gauss WENOUpwindFit 3 1;
+    //div(rhoPhi,U)           Gauss linear;
+    "div\(phi,alpha.*\)"    Gauss WENOUpwindFit 3 1;
+    //"div\(phi,alpha.*\)"    Gauss vanLeer;
     "div\(phir,alpha.*\)"   Gauss linear;
 
     "div\(Yiphir,alpha.*\)" Gauss linear;
-    //"div\(phi,.*\.gas.*\)"  Gauss WENOUpwindFit 4 1;
-    "div\(phi,.*\.gas.*\)"  Gauss linear;
+    "div\(phi,.*\.gas.*\)"  Gauss WENOUpwindFit 3 1;
+    //"div\(phi,.*\.gas.*\)"  Gauss linear;
 
     div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
 
     "div\(.*1.*\)"          Gauss linear;
-    //div(phi,T)              Gauss WENOUpwindFit 4 1;
-    div(phi,T)              Gauss linear;
+    div(phi,T)              Gauss WENOUpwindFit 3 1;
+    //div(phi,T)              Gauss linear;
 }
 
 laplacianSchemes
 {
-    //default         Gauss linear orthogonal;
-    default         Gauss linear corrected;
+    default         Gauss linear orthogonal;
+    //default         Gauss linear corrected;
 }
 
 interpolationSchemes
@@ -58,8 +58,8 @@ interpolationSchemes
 
 snGradSchemes
 {
-    //default         orthogonal;
-    default         corrected;
+    default         orthogonal;
+    //default         corrected;
 }
 
 wallDist

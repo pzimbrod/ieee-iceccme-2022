@@ -22,7 +22,6 @@ boundaryField
 {
     left
     {
-        //type            slip;
         type            symmetryPlane;
     }
 
@@ -38,7 +37,6 @@ boundaryField
 
     right
     {
-        //type            slip;
         type            symmetryPlane;
     }
 
