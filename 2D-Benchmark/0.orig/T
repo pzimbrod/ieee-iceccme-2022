@@ -27,12 +27,14 @@ boundaryField
 {
     left
     {
-        type           zeroGradient;
+        //type           zeroGradient;
+        type           symmetryPlane;
     }
 
     right
     {
-        type           zeroGradient;
+        //type           zeroGradient;
+        type           symmetryPlane;
     }
 
     bottom

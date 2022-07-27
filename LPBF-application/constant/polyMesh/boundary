@@ -22,25 +22,25 @@ FoamFile
     {
         type            patch;
         nFaces          1875;
-        startFace       9024400;
+        startFace       2311900;
     }
     outlet
     {
         type            patch;
         nFaces          1875;
-        startFace       9026275;
+        startFace       2313775;
     }
     solidBottom
     {
         type            patch;
-        nFaces          30000;
-        startFace       9028150;
+        nFaces          7500;
+        startFace       2315650;
     }
     walls
     {
         type            patch;
-        nFaces          114325;
-        startFace       9058150;
+        nFaces          39325;
+        startFace       2323150;
     }
 )
 

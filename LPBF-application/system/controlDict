@@ -24,7 +24,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         0.002;
+endTime         0.0005;
 
 //deltaT          1e-9; //for CFL <1 with laser SS 1000 mm/s
 deltaT          1e-10; // We start out very small due to rapid heating

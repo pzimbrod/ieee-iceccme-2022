@@ -12,8 +12,8 @@ runApplication decomposePar
 #rm -rf log.topoSet
 #runParallel refineMesh -overwrite -dict system/refineMeshDict
 #rm -rf log.refineMesh
-#runParallel topoSet
-#runParallel refineMesh -overwrite -dict system/refineMeshDict
+# runParallel topoSet
+# runParallel refineMesh -overwrite -dict system/refineMeshDict
 runParallel setFields
 runParallel setExprFields
 runParallel renumberMesh -overwrite

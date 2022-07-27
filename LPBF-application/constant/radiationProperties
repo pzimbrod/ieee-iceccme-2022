@@ -15,9 +15,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// taken from https://www.cfd-online.com/Forums/openfoam-solving/220001-icoreactingmultiphaseinterfoam-laser-dtrm.html
-// courtesy navidamin
-
 radiation       on;
 
 radiationModel  laserDTRM;
@@ -44,7 +41,7 @@ absorptionEmissionModel localDensityAbsorptionEmission;
 	focalLaserPosition table 	
                     (
                         (0        (.00015 .00015 0.0002))
-                        (0.002    (.0018 .00015 0.0002))
+                        (0.0005    (.00065 .00015 0.0002))
                     );
 	laserDirection      constant 	(0 0 -1);
 	focalLaserRadius    0.000025; // 10.1038/s41467-019-10009-2

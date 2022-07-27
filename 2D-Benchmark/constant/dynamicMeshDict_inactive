@@ -53,6 +53,8 @@ correctFluxes
     (alphaPhi.phase2 none)
     (ghf none)
     (alphaPhiUn none)
+    (phi_0_0 none)
+    (ddtCorrDdt0(phi) none)
 );
 
 // Write the refinement level as a volScalarField

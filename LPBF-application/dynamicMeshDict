@@ -18,17 +18,17 @@ FoamFile
 dynamicFvMesh   dynamicRefineFvMesh;
 
 // How often to refine
-refineInterval  1;
+refineInterval  2;
 
 // Field to be refinement on
 field           gradT;
 
 // Refine field inbetween lower..upper
-lowerRefineLevel 1e8;
+lowerRefineLevel 1e7;
 upperRefineLevel 1e30;
 
 // If value < unrefineLevel unrefine
-unrefineLevel   20;
+unrefineLevel   1e3;
 
 // Have slower than 2:1 refinement
 nBufferLayers   1;

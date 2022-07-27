@@ -45,8 +45,8 @@ solvers
 
     "p_rgh|sPhi.*"
     {
-        solver          PCG;
-        preconditioner  DIC;
+        solver          PBiCGStab;
+        preconditioner  FDIC;
         tolerance       1e-09;
         relTol          0.02;
     }
@@ -85,10 +85,10 @@ solvers
 
 PIMPLE
 {
-    momentumPredictor   yes;
+    momentumPredictor   false;
     nOuterCorrectors    1;
     nCorrectors         3;
-    nNonOrthogonalCorrectors 1;
+    nNonOrthogonalCorrectors 0;
     pRefCell    0;
     pRefValue    0;
 }
