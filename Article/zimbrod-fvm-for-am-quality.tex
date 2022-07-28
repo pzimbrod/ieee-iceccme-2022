@@ -65,7 +65,7 @@ johannes.schilp@uni-a.de}
 \conf{\textit{  Proc. of the International Conference on Electrical, Computer, Communications and Mechatronics Engineering  (ICECCME) \\ 
 16-18 November 2022, Maldives}}
 \begin{abstract}
-We present a free and open source implementation of the Finite Volume Method that captures thermal and solute-driven free-surface flows, more commonly known as Marangoni flows. This type of physics commonly appears within many manufacturing processes as well as microfluidic devices and is known to be challenging to resolve. The application includes adaptive mesh refinement coupled with high order WENO schemes in order to substantially save computational cost in multiphase flows where adequate tracking of the phase boundaries is crucial. By accurately simulating the temporal evolution of multiphase flow patterns, unique insight into e.g. the physics of melt pool formation in metal additive manufacturing is possible that is otherwise hard to gain experimentally. We demonstrate our work by a simple two-dimensional benchmark case and outline possible applications with a mesoscopic model of Laser Powder Bed Fusion additive manufacturing.
+We present a free and open source implementation of the Finite Volume Method that captures thermal and solute-driven free-surface flows, more commonly known as Marangoni flows. This type of physics commonly appears within many manufacturing processes as well as microfluidic devices and is known to be challenging to resolve. The application includes adaptive mesh refinement and high order WENO schemes in order to substantially save computational cost in multiphase flows where adequate tracking of the phase boundaries is crucial. By accurately simulating the temporal evolution of multiphase flow patterns, unique insight into e.g. the physics of melt pool formation in metal additive manufacturing is possible that is otherwise hard to gain experimentally. We demonstrate our work by a simple two-dimensional benchmark case and outline possible applications with a mesoscopic model of Laser Powder Bed Fusion additive manufacturing.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -99,7 +99,7 @@ However, the mentioned works exhibit some shortcomings when compared to the gene
 
 \section{Theory}
 
-To describe the necessary linear algebra, we will use the index notation of tensors in a cartesian coordinate system alongside with the Einstein summation convention where the sum over matching indices is implied.
+To describe the underlying mathematical concepts, we will use the index notation of tensors in a cartesian coordinate system alongside with the Einstein summation convention where the sum over matching indices is implied.
 
 From here on, we assume a system of partial differential equations that involves the transient evolution of multiple fluid phases in a joint domain. This means we are tasked to solve at least the Navier-Stokes equations in order to capture velocity, pressure and temperature fields.
 
@@ -109,7 +109,7 @@ In addition, we need to properly discretize the different phases in the model. O
   \frac{\partial \alpha_{j}}{\partial t} + \frac{\partial u_{i} \alpha_{j}}{\partial x_{i}} = 0
 \end{equation}
 
-Where $\alpha_{j}$ represents the $j$-th phase involved. From this, we obtain a set of scalar, hyperbolic conservation laws that track the cell-wise volumetric fraction of each phase over the domain.
+Where $\alpha_{j}$ represents the $j$-th phase involved. From this, we obtain a set of hyperbolic conservation laws that track the cell-wise volumetric fraction of each phase over the domain.
 
 After that, we can consider the effects happening at the interface of such phases, i.e. within this work we investigate surface tension. With no other physics involved, this leads to a contractional movement normal to the interface. If however varying fields, such as temperature are present that influence the surface tension coefficient, additional forces interact with the interface. This is shown in Fig. \ref{fig:surface-tension}.
 
@@ -120,35 +120,34 @@ After that, we can consider the effects happening at the interface of such phase
   \label{fig:surface-tension}
 \end{figure}
 
-The theory of the proposed implementation of those surface tension effects relies on the Continuum Surface Stress Method initially presented by Lafaurie et al. \cite{lafaurieModellingMergingFragmentation1994}, extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{brackbillContinuumMethodModeling1992}.
- First, the capillary stress tensor is introduced:
+The theory of the proposed implementation of those surface tension effects relies on the Continuum Surface Stress Method initially presented by Lafaurie et al. \cite{lafaurieModellingMergingFragmentation1994}, extending the works on modelling surface tension with the Volume of Fluid Method as described by Brackbill et al. \cite{brackbillContinuumMethodModeling1992}. Using this modelling technique, it is possible to incorporate surface tension as a generalized body force into the governing equations that is well defined everywhere in the domain. This additional term is then called the capillary stress which takes the form of a stress tensor:
 
 \begin{equation}
     T_{ij} = - \sigma \delta_s (\delta_{ij} - n_i n_j)
 \end{equation}
 
-Where $\sigma$ is the generally non constant coefficient of surface tension. $\delta_s$ is the interface delta function that serves as an indicator function of where the phase boundaries are located. $\delta_{ij}$ is the Kronecker Delta function and $n_i$ is the interface unit normal vector. The local coordinate system of the interface needs to be an orthogonal system in order to separate the purely geometry based capillary force and the tangential Marangoni forces (c.f. Fig. \ref{fig:surface-tension}).
-The resulting force accounting for all surface tension effects can now be expressed as the divergence of the capillary stress tensor, yielding:
+Where $\sigma$ is the generally non constant coefficient of surface tension. $\delta_s$ is the interface delta function that serves as an indicator function of where the phase boundaries are located. $\delta_{ij}$ is the Kronecker Delta function and $n_i$ is the interface unit normal vector. The concrete implementation of these abstract quantities into the Volume of Fluid framework is given later on. The local coordinate system of the interface needs to be an orthogonal system in order to separate the purely geometry based capillary force and the tangential Marangoni forces (c.f. Fig. \ref{fig:surface-tension}).
+The resulting force accounting for all surface tension effects can now be expressed as the negative divergence of the capillary stress tensor, yielding:
 
 \begin{multline} \label{eq:stress-tensor}
     \frac{\partial T_{ij}}{\partial x_j} = \frac{\partial \sigma}{\partial x_j} [\delta_s(\delta_{ij} - n_i n_j)] + \frac{\partial \delta_s}{\partial x_j} [\sigma (\delta_{ij} - n_i n_j)] \\ + \sigma \delta_s \frac{\partial}{\partial x_j} (\delta_{ij} - n_i n_j)
 \end{multline}
 
-One can show that Eq. \ref{eq:stress-tensor} can be re-arranged using some tensor algebra and geometric identities into a much shorter and more useful form. The derivation is given in more detail by Lafaurie et al. \cite{lafaurieModellingMergingFragmentation1994}. By performing those rearrangements, we can recover a form that separates the normal from the tangential components of the divergence vector:
+One can show that Eq. \ref{eq:stress-tensor} can be re-arranged into a much shorter and more useful form. The derivation is given in more detail by Lafaurie et al. \cite{lafaurieModellingMergingFragmentation1994}. By performing those rearrangements, we can recover a form that separates the normal from the tangential components of the divergence vector:
 
 \begin{equation}
 \label{eq:divergence-capillarystress}
     \frac{\partial T_{ij}}{\partial x_j} = \frac{\partial \sigma}{\partial x_i} [\delta_s(\delta_{ij} - n_i n_j)] - \sigma \kappa n_i \delta_s 
 \end{equation}
 
-Here, the interface curvature $\kappa$ is introduced. The second term of the right hand side corresponds to the normal capillary force (Fig. \ref{fig:surface-tension}, $F_{\sigma n}$) directed in the normal direction of the interface, effecting a contractional movement of the interface. The first term resembles the marangoni-type forces (Fig. \ref{fig:surface-tension}, $F_{\sigma t}$) present. By taking the derivative of the surface tension coefficient, this term does not vanish if and only if spatial gradients exist at the interface. This is normally the case when there are multiple species involved or temperature gradients present \cite{j.straubThermokapillareGrenzflachenkonvektionGasblasen1990}. Note that we then simply evaluate the ordinary form of surface tension without any additional physics present. However, as the surface tension coefficient is otherwise not a direct local variable, one must further differentiate the term:
+Where we introduced the interface curvature $\kappa$. The second term of the right hand side corresponds to the normal capillary force (Fig. \ref{fig:surface-tension}, $F_{\sigma n}$) directed in the normal direction of the interface, effecting a contractional movement of the interface. The first term resembles the marangoni-type forces (Fig. \ref{fig:surface-tension}, $F_{\sigma t}$) present. By taking the derivative of the surface tension coefficient, this term does not vanish if and only if spatial gradients exist at the interface. This is normally the case when there are multiple species involved or temperature gradients present \cite{j.straubThermokapillareGrenzflachenkonvektionGasblasen1990}. Note that we otherwise simply evaluate the ordinary form of surface tension without any additional physics present. However, as the surface tension coefficient is otherwise not a direct local variable, we must further differentiate the term:
 
 \begin{equation}
     \frac{\partial \sigma(c,T)}{\partial x_j} = \frac{\partial \sigma(c,T)}{\partial T} \frac{\partial T}{\partial x_j} + \frac{\partial \sigma(c,T)}{\partial c} \frac{\partial c}{\partial x_j}
     \label{eq:sigmadiff}
 \end{equation}
 
-Additionally, the delta function $\delta_s$ needs to be discretized in a suitable manner in order to capture the physics within the Finite Volume framework. This can be done using the Volume of Fluid Method by taking the gradient of the phase volume fraction $\alpha$ \cite{gueyffierVolumeofFluidInterfaceTracking1999,hirtVolumeFluidVOF1981}:
+Additionally, the delta function $\delta_s$ still needs to be discretized in a suitable manner in order to capture the physics within the Finite Volume framework. This can be done using the Volume of Fluid Method by taking the gradient of the phase volume fraction $\alpha$ \cite{gueyffierVolumeofFluidInterfaceTracking1999,hirtVolumeFluidVOF1981}:
 
 \begin{equation}
     \delta_s = \left\lvert \frac{\partial \alpha}{\partial x_i} \right\rvert
@@ -166,34 +165,23 @@ The interface unit normal vector $n_i$ can be computed in a similar manner by us
 
 The presented theoretical foundation is modified and implemented based on the open source library \textit{OpenFOAM}, which is a popular software library that implements the Finite Volume Method \cite{jasakOpenFOAMLibraryComplex2007}. The modifications rely on the works of Gueyffier et al. in order to account for the additional Marangoni stresses \cite{gueyffierVolumeofFluidInterfaceTracking1999}.
 
-The proposed code computes the divergence of the capillary stress tensor for finite volume cell centers. However, to handle source terms within the PIMPLE loop, it is necessary to also supply the surface tension force as a scalar interpolated to the cell face. Therefore, an additional method is implemented that computes the $L_2$ norm of the surface tension force vector and interpolates the scalar value via finite differencing.
+The proposed code computes the divergence of the capillary stress tensor for finite volume cell centers. However, to handle source terms within the PIMPLE loop, it is necessary to also supply the surface tension force as a scalar interpolated to the cell face. Therefore, an additional method is implemented that computes the face flux of the surface tension force, as is common for the Finite Volume method.
 
-A very useful property of this approach is that not only thermally driven surface tension effects can be incorporated, but also gradients arising from any kind of inhomogeneity. This means that, among others, solute-driven effects can also be modelled. This scenario is common in manufacturing processes involving mixing of multiple solvents. Within the context of additive manufacturing, in-situ alloying is a scenario where such effects are not negligible \cite{katz-demyanetzInsituAlloyingNovel2020}.
-
-To account for thermal and solute-driven effects simultaneously, we need to incorporate the temperature dependence of the surface tension as well as interfacial tension between the involved phases. This allows us to capture not only flow patterns on liquid-gas interfaces, but also between liquid interfaces of dissimilar species. We may find accurate values for temperature dependent surface tension in the literature. However, determining interfacial tension poses a non-trivial problem that has been discussed in the literature \cite{marmurCorrelatingInterfacialTensions2010}.
-
-In a pursuit to keep model evaluation simple and not rely on Molecular Dynamics calculations, we use the following, relatively simple approximation for interfacial tension given by Girifalco and Good \cite{girifalcoTheoryEstimationSurface1957}:
-
-\begin{equation}
-    \sigma_{1,2} = \sigma_1 + \sigma_1 + 2C (\sigma_1 \sigma_2)^{1/2}
-\end{equation}
-
-Here, $\sigma_{1,2}$ denotes the interfacial tension, $\sigma_1$ and $\sigma_2$ are the surface tensions of the involved species and $C$ is a constant which we assume to be one as a reasonable approximation \cite{marmurCorrelatingInterfacialTensions2010}.
+It is clear from equation \ref{eq:sigmadiff} that we would normally have to supply the derivatives of the surface tension coefficient with respect to the respective fields and then compute the gradients of the fields each. This can quickly become tedious to implement as well to code when multiple sources of Marangoni convection are considered. Therefore, we instead first compute the surface tension coefficient locally and treat it as a differentiable field itself.
+A very useful property of this approach is that not only thermally driven surface tension effects can be incorporated, but also gradients arising from any kind of inhomogeneity. This means that, among others, solute-driven effects can also be modelled. This scenario is common in manufacturing processes involving mixing of multiple solvents. Within the context of additive manufacturing, in-situ alloying is a scenario where such effects are not negligible \cite{katz-demyanetzInsituAlloyingNovel2020}. In such a case, we not only need to investigate the flow patterns on liquid-gas interfaces, but also between liquid interfaces of dissimilar species. We may find accurate values for temperature dependent surface tension in the literature. However, determining the necessary values for interfacial tension poses a non-trivial problem that has been discussed in the literature \cite{marmurCorrelatingInterfacialTensions2010}. We can however instead rely on simple approximate models to interpolate interfacial tension from individual surface tension values. An example of such a model is given by Girifalco and Good \cite{girifalcoTheoryEstimationSurface1957}.
 
 In order to approximate the differential terms in the governing equations efficiently, we use high order weighted essentially non-oscillatory (WENO) schemes that have been developed separately for OpenFOAM by Gärtner et al. \cite{gartnerEfficientWENOLibrary2020,martinImplementationValidationSemiImplicit2018}. In this implementation, the numeric stencil coefficients to specified order are pre-computed and locally stored to alleviate the harsh overhead in memory requirements. The theory behind the derivation of high order WENO stencils is given in Gärtner et al. \cite{gartnerEfficientWENOLibrary2020}.
 
 \section{Numerical experiments}
 
-First, we replicate and examine the numerical setup proposed by Ma et al. that models the flow around a stationary bubble subject to a temperature gradient \cite{maDirectNumericalSimulation2011}. We aim to accurately predict the velocity field that arises due to marangoni convection at the interface.
+First, we replicate and examine the numerical setup proposed by Ma and Bothe that models the flow around a stationary bubble subject to a temperature gradient \cite{maDirectNumericalSimulation2011}. We aim to accurately predict the velocity field that arises due to marangoni convection at the interface.
 
 We then proceed to investigate the mesoscopic nanosecond dynamics during selective laser melting of steel, a common problem within additive manufacturing. Here, we show that our implementation is able to handle geometrically and physically complex simulations in 3D.
 
 
 \subsection{Marangoni Flow around a droplet}\label{sec:droplet}
 
-We now investigate a simple, two-dimensional benchmark case that illustrates the ability to capture Marangoni effects for the present work.
-
-An overview of the material parameters is given in table \ref{tab:droplet-parameters}.
+We now investigate the aforementioned simple, two-dimensional benchmark case that illustrates the ability to capture Marangoni effects for the present work. An overview of the material parameters is given in table \ref{tab:droplet-parameters}.
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
@@ -226,7 +214,7 @@ We impose no-slip boundary conditions at the walls as well as Neumann type bound
 
 The remainder of the involved numerics and parameters, as well as all boundary conditions can be accessed via the online repository given in section \ref{sec:data}.
 
-The resulting fields at the final time step $t = \SI{0.12}{\second}$ is shown in Fig. \ref{fig:2d-benchmark}. We can clearly observe the field of vortices that form around the bubble, initiated from varying pressures along the interface. This is due to the Marangoni effect, resulting in an uneven pressure distribution in the domain. Following equation \ref{eq:divergence-capillarystress}, the first term involving the gradient of the surface tension coefficient - i.e. the marangoni coefficient times the gradient of the temperature field - does not vanish here and hence induces a non homogeneous pressure contribution. The resulting two large vortices drive the droplet to an upwards motion, in direction of increasing temperature gradient.
+The resulting fields at the final time step $t = \SI{0.12}{\second}$ is shown in Fig. \ref{fig:2d-benchmark}. We can clearly observe the field of vortices that form around the bubble, initiated from varying pressures along the interface. This is due to the Marangoni effect, resulting in an uneven pressure distribution in the domain. Following equation \ref{eq:divergence-capillarystress}, the first term involving the gradient of the surface tension coefficient - i.e. the marangoni coefficient times the gradient of the temperature field - does not vanish here and hence induces a non homogeneous pressure contribution. The resulting two large vortices drive the droplet to an upwards motion in direction of increasing temperature gradient. The observed fields reproduce the findings of Ma and Bothe closely \cite{maDirectNumericalSimulation2011}.
 
 \begin{figure}[!tbp]
   \centering
