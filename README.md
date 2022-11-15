@@ -1,4 +1,4 @@
-# An Efficient, High-order, Adaptive Finite Volume Solver for Modelling Capillary Effects in Advanced Manufacturing Processes
+# Efficient Simulation of Complex Capillary Effects in Advanced Manufacturing Processes using the Finite Volume Method
 
 This is the source repository for the corresponding article submitted to IEEEE ICECCME 2022.
 
