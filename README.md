@@ -34,6 +34,19 @@ After that, proceed as described in the previous section to run the simulation i
 The proposed FVM code `thermocapillaryInterFoam` must be installed locally in order to run the models.
 The source is available in the corresponding [GitHub repo](https://github.com/pzimbrod/thermocapillaryInterFoam)
 
-## License
+# Citing
+
+This article is published in IEEE, please cite as:
+
+```
+@INPROCEEDINGS{9988504,
+author={Zimbrod, Patrick and Schreter, Magdalena and Schilp, Johannes},
+booktitle={2022 International Conference on Electrical, Computer, Communications and Mechatronics Engineering (ICECCME)},
+title={Efficient Simulation of Complex Capillary Effects in Advanced Manufacturing Processes using the Finite Volume Method},
+year={2022},  volume={},  number={},  pages={1-6},  doi={10.1109/ICECCME55909.2022.9988504}
+}
+```
+
+# License
 
 [MIT](https://choosealicense.com/licenses/mit/)
